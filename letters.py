@@ -20,4 +20,5 @@ def letter_count(file):
         char = file.read(1)
 
     file.close()
-            
+        
+print(letter_count(open('./frost.txt')))
