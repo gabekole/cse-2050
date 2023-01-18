@@ -1,2 +1,2 @@
-def generic_hi(name):
+def generic_hi(name = 'world'):
     return 'Hello, ' + name + '!'
