@@ -1,6 +1,7 @@
 from string import ascii_letters
 
-def letter_count(file):
+def letter_count(filename):
+    file = open(filename, 'r')
     count_map = {}
     char = file.read(1)
     while char:
