@@ -21,4 +21,14 @@ def letter_count(file):
 
     return count_map
         
-print(letter_count(open('./frost.txt')))
+def letter_frequency(dict_letters):
+    sum = 0
+    for key, value in dict_letters.items():
+        sum += value
+    
+    frequency_map = {}
+    for key, value in dict_letters.items():
+        frequency_map[key] = value/sum
+    
+    return frequency_map
+
