@@ -10,7 +10,7 @@ def letter_count(file):
  
         lower_case = char.lower()
         
-        if not lower_case in count_map.keys():
+        if not lower_case in count_map:
             count_map[lower_case] = 1
         else:
             count_map[lower_case] += 1
