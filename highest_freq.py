@@ -6,4 +6,7 @@ def highest_freq(filename):
 
     res = sorted(frequency.items(), key = lambda x:x[1], reverse=True)
 
-    return res[0]
+    try:
+        return res[0]
+    except IndexError:
+        return ('a', 0)
