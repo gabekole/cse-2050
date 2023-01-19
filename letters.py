@@ -18,13 +18,9 @@ def letter_count(filename):
     return count_map
         
 def letter_frequency(dict_letters):
-    sum = 0
-    for key, value in dict_letters.items():
-        sum += value
+    total_character_count = sum(dict_letters.values())
     
-    frequency_map = {}
-    for key, value in dict_letters.items():
-        frequency_map[key] = value/sum
+    frequency_map = {key: value/total_character_count for key, value in dict_letters.items()}
     
     return frequency_map
 
