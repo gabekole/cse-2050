@@ -10,3 +10,9 @@ def highest_freq(filename):
         return res[0]
     except IndexError:
         return ('a', 0)
+
+if __name__ == '__main__':
+    print(highest_freq('./frost.txt'))
+    print(highest_freq('./empty.txt'))
+    print(highest_freq('./The_Hunger_Games.txt'))
+    print(highest_freq('./Not_A_File.txt'))
