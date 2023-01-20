@@ -37,6 +37,7 @@ def letter_count(filename):
                 else:
                     count_map[lower_case] += 1
 
+    # Return the dictionary 
     return count_map
         
 def letter_frequency(dict_letters):
