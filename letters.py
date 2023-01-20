@@ -9,7 +9,6 @@ def letter_count(filename):
     Returns: A dictionary mapping each letter to its number of occurances in the provided file
 
     Notes: Only counts ascii letters. Counter is case insensitive.
-    
     """
 
     # Initialize map to be returned
@@ -37,7 +36,7 @@ def letter_count(filename):
                 else:
                     count_map[lower_case] += 1
 
-    # Return the dictionary 
+    # Return the dictionary
     return count_map
         
 def letter_frequency(dict_letters):
@@ -47,7 +46,6 @@ def letter_frequency(dict_letters):
     based on the number of occurances.
 
     Input: Dictionary with numerical values.
-
     """
 
     # Find the total character count by taking the sum of the occurances

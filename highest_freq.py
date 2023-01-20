@@ -2,13 +2,13 @@ from letters import letter_frequency, letter_count
 
 def highest_freq(filename):
     """
-    Returns a tuple containing the most frequent ascii letter 
+    Returns a tuple containing the most frequent ascii letter
     in the provided file and its relative frequency
 
     Input: path to file to be parsed
     Output: Tuple of the form: (letter, frequency)
 
-    Note: Counting is case insensitive
+    Note: Counting is case insensitive, only counts ascii letters.
     """
     
     # Gets the total count of the ascii letters
