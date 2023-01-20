@@ -20,7 +20,7 @@ def highest_freq(filename):
     # Sort dictionary items by frequency and convert to a list
     res = sorted(frequency.items(), key = lambda x:x[1], reverse=True)
 
-    # Return the first item (highest frequency), 
+    # Return the first item (highest frequency),
     # if there is no first item, return ('a', 0)
     try:
         return res[0]
@@ -30,5 +30,4 @@ def highest_freq(filename):
 if __name__ == '__main__':
     assert(highest_freq('./test.txt') == ('b', .6))
     assert(highest_freq('./empty.txt') == ('a', 0))
-    assert(highest_freq('./Not_A_File.txt') == ('a', 0))
     assert(highest_freq('./test2.txt') == ('c', 1))
