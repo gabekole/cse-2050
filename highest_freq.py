@@ -28,6 +28,7 @@ def highest_freq(filename):
         return ('a', 0)
 
 if __name__ == '__main__':
+    # Tests for the highest_freq function
     assert(highest_freq('./test.txt') == ('b', .6))
     assert(highest_freq('./empty.txt') == ('a', 0))
     assert(highest_freq('./test2.txt') == ('c', 1))
