@@ -8,7 +8,7 @@ def letter_count(filename):
     Input: path to a file
     Returns: A dictionary mapping each letter to its number of occurances in the provided file
 
-    Notes: Only counts ascii letters. Counter is case insensitive.
+    Note: Only counts ascii letters. Counter is case insensitive.
     """
 
     # Initialize map to be returned
