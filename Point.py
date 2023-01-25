@@ -2,7 +2,8 @@ class Point:
     """
     Contains a point defined by (x, y)
 
-    Comparisons are defined for "<", ">" and "==" operators by comparing the points distance from the origin
+    Comparisons are defined for "<", ">" and "==" operators
+    Comparisons between points compare their distances from the origin
 
     Examples:
         Point(1, 1) < Point(1, 2) # True
