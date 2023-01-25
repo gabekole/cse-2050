@@ -1,4 +1,21 @@
 class Point:
+    """
+    Contains a point defined by (x, y)
+
+    Comparisons are defined for "<", ">" and "==" operators by comparing the points distance from the origin
+
+    Examples:
+        Point(1, 1) < Point(1, 2) # True
+        Point(-10, -5) > Point(3, 6) # True
+        Point(1, 1) == Point(-1, -1) # True
+        Point(2, 3) == Point(3, 2) # True
+
+        Point(5, -7) < Point(2, 3) # False
+        Point(-1, 3) > Point(5, 0) # False
+        Point(2, 3) == Point(0, 0) # False
+
+    """
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -64,6 +81,7 @@ if __name__ == '__main__':
     assert str(p2) == "(-6, 8)"
     assert str(p3) == "(-6, 8)"
     assert str(p4) == "(-3, -4)"
+    assert str(Point(9, 10)) == "(9, 10)"
 
     ##### test dist_from_origin() #####
     
