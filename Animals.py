@@ -6,7 +6,7 @@ class Animal:
     return f'{self.name} says hi'
     
   def reply(self):
-    self.speak()
+    return self.speak()
 
 
 class Mammal(Animal):
