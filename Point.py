@@ -5,6 +5,9 @@ class Point:
     Comparisons are defined for "<", ">" and "==" operators
     Comparisons between points compare their distances from the origin
 
+    Methods:
+        dist_from_origin() -> returns distance of point from the origin (0, 0)
+
     Examples:
         Point(1, 1) < Point(1, 2) # True
         Point(-10, -5) > Point(3, 6) # True
@@ -14,6 +17,9 @@ class Point:
         Point(5, -7) < Point(2, 3) # False
         Point(-1, 3) > Point(5, 0) # False
         Point(2, 3) == Point(0, 0) # False
+
+        Point(3, 4).dist_from_origin() == 5 # True
+        Point(6, 8).dist_from_origin() == 10 # true
 
     """
 
