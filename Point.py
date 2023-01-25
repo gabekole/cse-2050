@@ -42,10 +42,6 @@ class Point:
     def __str__(self):
         return 'Point('+ str(self.x) + ', ' + str(self.y) + ')'
     
-
-# ^^^Implement class and functionality above (remember to include docstrings!)
-# vvvImplement tests below
-
 if __name__ == '__main__':
     # All tests should use `assert`, not `print`
     
