@@ -30,7 +30,7 @@ class Point:
         return (self.x**2 + self.y**2)**0.5
 
     def __str__(self):
-        return '('+ str(self.x) + ', ' + str(self.y) + ')'
+        return 'Point('+ str(self.x) + ', ' + str(self.y) + ')'
     
 
 # ^^^Implement class and functionality above (remember to include docstrings!)
@@ -78,11 +78,11 @@ if __name__ == '__main__':
 
     
     ##### test str #####
-    assert str(p1) == "(3, 4)"
-    assert str(p2) == "(-6, 8)"
-    assert str(p3) == "(-6, 8)"
-    assert str(p4) == "(-3, -4)"
-    assert str(Point(9, 10)) == "(9, 10)"
+    assert str(p1) == "Point(3, 4)"
+    assert str(p2) == "Point(-6, 8)"
+    assert str(p3) == "Point(-6, 8)"
+    assert str(p4) == "Point(-3, -4)"
+    assert str(Point(9, 10)) == "Point(9, 10)"
 
     ##### test dist_from_origin() #####
     
