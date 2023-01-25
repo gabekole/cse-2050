@@ -26,12 +26,16 @@ class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+    
     def __gt__(self, other):
         return isinstance(other, Point) and self.dist_from_origin() > other.dist_from_origin()
+    
     def __lt__(self,other):
         return isinstance(other, Point) and self.dist_from_origin() < other.dist_from_origin()
+    
     def __eq__(self,other):
         return isinstance(other, Point) and self.dist_from_origin() == other.dist_from_origin()
+    
     def dist_from_origin(self):
         return (self.x**2 + self.y**2)**0.5
 
