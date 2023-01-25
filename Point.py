@@ -2,12 +2,7 @@ class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-    def __lt__(self, other):
-        pass
-    def __gt__(self, other):
-        pass
-    def __eq__(self, other):
-        pass
+    
     
 
 # ^^^Implement class and functionality above (remember to include docstrings!)
