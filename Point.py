@@ -10,6 +10,9 @@ class Point:
         return isinstance(other, Point) and self.dist_from_origin() == other.dist_from_origin()
     def dist_from_origin(self):
         return (self.x**2 + self.y**2)**0.5
+
+    def __str__(self):
+        return f'({self.x}, {self.y})'
     
 
 # ^^^Implement class and functionality above (remember to include docstrings!)
@@ -44,7 +47,7 @@ if __name__ == '__main__':
 
     ##### test gt #####
     assert p2 > p1 # Expected True (e.g `p1 > p2`)
-    assert p1 > p2 # Expected False (e.g. `not p1 > p2`)
+    assert not p1 > p2 # Expected False (e.g. `not p1 > p2`)
     assert p2 > p1 # Expected true
     assert p3 > p4 # Expected true, greater distance
     assert not p3 > p2 # Expected false since same disatance
@@ -63,4 +66,8 @@ if __name__ == '__main__':
     assert str(p4) == "(-3, -4)"
 
     ##### test dist_from_origin() #####
-    assert round(p1.dist_from_origin(),2) == 7.21110
+    
+    assert p1.dist_from_origin() == 5
+    assert p2.dist_from_origin() == 10
+    assert p3.dist_from_origin() == 10
+    assert p4.dist_from_origin() == 5
