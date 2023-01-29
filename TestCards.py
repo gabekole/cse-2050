@@ -82,10 +82,68 @@ class TestDeck(unittest.TestCase):
     second_hand = Hand([10], ['triangles', 'squares', 'circles'])
     self.assertEqual(repr(second_hand.card_list), "Deck: [Card(10 of triangles), Card(10 of squares), Card(10 of circles)]")
 
+  def test_draw_top(self):
+    first_hand = Hand([1], ['clubs', 'diamonds'])
+
+    expected_first_draw = first_hand.card_list[-1]
+    expected_second_draw = first_hand.card_list[-2]
+
+    self.assertEqual(first_hand.draw_top(), expected_first_draw)
+    self.assertEqual(first_hand.draw_top(), expected_second_draw)
+
+    self.assertRaises(RuntimeError, first_hand.draw_top())
+
+
+    second_hand = Hand([2, 1], ['clubs', 'diamonds'])
+
+    expected_second_draw = second_hand.card_list[-1]
+    expected_second_draw = second_hand.card_list[-2]
+    expected_third_draw = second_hand.card_list[-3]
+    expected_fourth_draw = second_hand.card_list[-4]
+
+    self.assertEqual(second_hand.draw_top(), expected_second_draw)
+    self.assertEqual(second_hand.draw_top(), expected_second_draw)
+    self.assertEqual(second_hand.draw_top(), expected_third_draw)
+    self.assertEqual(second_hand.draw_top(), expected_fourth_draw)
+
+    self.assertRaises(RuntimeError, second_hand.draw_top())
+
+  def test_shuffle(self):
+    pass
+    
+
+
 class TestHand(unittest.TestCase):
   "Test cases specific to the Hand class"
+
   def test_init(self):
     "Test the init method"
+    first_hand = Hand([Card(value,'clubs') for value in range(5, 0,-1)])
+    second_hand = Hand([Card(2, 'triangles')])
+
+  def test_repr(self):
+    first_hand = Hand([Card(value,'clubs') for value in range(5, 2,-1)])
+    self.assertEqual(repr(first_hand), "Hand: [Card(5 of clubs), Card(4 of clubs), Card(3 of clubs)]")
+
+    second_hand = Hand([Card(2, 'triangles')])
+    self.assertEqual(repr(second_hand), "Hand: [Card(2 of triangles)]")
+
+  def test_play(self):
+    hand = Hand([Card(5,'clubs'), Card(4,'clubs')])
+
+    self.assertRaises(RuntimeError, hand.play(Card(5, 'diamonds')))
+    self.assertRaises(RuntimeError, hand.play(Card(2, 'clubs')))
+
+    hand.play(5, 'clubs')
+    self.assertEqual(hand.card_list, [Card(4, 'clubs')])
+
+    hand.play(4, 'clubs')
+    self.assertEqual(hand.card_list, [])
+
+    self.assertRaises(RuntimeError, hand.play(5, 'clubs'))
+    self.assertRaises(RuntimeError, hand.play(4, 'clubs'))
+
+
 
 if __name__ == "__main__":
   unittest.main()
