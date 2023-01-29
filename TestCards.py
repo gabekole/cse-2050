@@ -1,5 +1,6 @@
 from Cards import Card, Deck, Hand
 import unittest
+import random
 
 class TestCard(unittest.TestCase):
   "Test cases specific to the Card class"
@@ -110,7 +111,18 @@ class TestDeck(unittest.TestCase):
     self.assertRaises(RuntimeError, second_deck.draw_top)
 
   def test_shuffle(self):
-    pass
+    deck = Deck([2, 3, 5, 6, 7], ['diamonds', 'hearts', 'triangles'])
+    card_list = deck.card_list.copy()
+
+    random.seed(1)
+    deck.shuffle()
+
+    self.assertNotEqual(card_list, deck.card_list)
+    
+    random.seed(1)
+    random.shuffle(card_list)
+
+    self.assertEqual(card_list, deck.card_list)
     
 
 
