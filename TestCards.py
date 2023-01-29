@@ -1,3 +1,4 @@
+
 from Cards import Card, Deck, Hand
 import unittest
 import random
@@ -6,7 +7,12 @@ class TestCard(unittest.TestCase):
   "Test cases specific to the Card class"
 
   def test_init(self):
-    "Test the init method of the Card class"
+    """
+    Test the init method of the Card class
+
+    Asserts that instance varaibles are assigned correctly
+    """
+    
 
     self.assertEqual(Card(6, 'spades').value, 6)
     self.assertEqual(Card(6, 'spades').suit, 'spades')
@@ -18,7 +24,11 @@ class TestCard(unittest.TestCase):
     self.assertEqual(Card(12, 'clubs').suit, 'clubs')
 
   def test_repr(self):
-    "Test the repr method of the card class"
+    """
+    Test the repr method of the card class
+
+    Expects card to be printed as: Card(`value` of `suit`)
+    """
 
     self.assertEqual(repr(Card(13, 'spades')), "Card(13 of spades)")
     self.assertEqual(repr(Card(3, 'hearts')), "Card(3 of hearts)")
@@ -26,7 +36,11 @@ class TestCard(unittest.TestCase):
     self.assertEqual(repr(Card(5, 'diamonds')), "Card(5 of diamonds)")
 
   def test_lt(self):
-    "Test the __lt__ magic method of the Card class"
+    """
+    Test the __lt__ magic method of the Card class
+
+    Expects cards to be first compared by suit, then by value
+    """
 
     self.assertTrue(Card(5, 'a') < Card(3, 'b'))
     self.assertTrue(Card(2, 'clubs') < Card(4, 'hearts'))
@@ -37,7 +51,11 @@ class TestCard(unittest.TestCase):
     self.assertFalse(Card(3, 'spades') < Card(5, 'diamonds'))
 
   def test_eq(self):
-    "Test the __eq__ magic method of the Card class"
+    """
+    Test the __eq__ magic method of the Card class
+
+    Expects equality to be true when value and suit of the card are equal
+    """
 
     self.assertTrue(Card(5, 'a') == Card(5, 'a'))
     self.assertTrue(Card(4, 'diamonds') == Card(4, 'diamonds'))
@@ -60,6 +78,8 @@ class TestDeck(unittest.TestCase):
     self.assertTrue(len(second_deck.card_list) == 52)
 
   def test_len(self):
+    "Test the __len__ magic method of the Deck class"
+
     first_deck = Deck([1, 2], ['clubs', 'diamonds'])
     self.assertEqual(len(first_deck), 2*2)
     self.assertEqual(len(first_deck.card_list), 2*2)
@@ -71,6 +91,8 @@ class TestDeck(unittest.TestCase):
     self.assertEqual(len(third_deck), 3*3)
 
   def test_sort(self):
+    "Test the `sort` method of the deck class"
+
     first_deck = Deck([2, 1], ['clubs', 'diamonds'])
     first_deck.sort()
 
@@ -87,6 +109,7 @@ class TestDeck(unittest.TestCase):
     self.assertEqual(sorted(third_deck.card_list), third_deck.card_list)
 
   def test_repr(self):
+    "Test the __repr__ magic method of the Deck class"
     first_deck = Deck([2], ['clubs', 'diamonds'])
     self.assertEqual(repr(first_deck), "Deck: [Card(2 of clubs), Card(2 of diamonds)]")
 
@@ -94,6 +117,8 @@ class TestDeck(unittest.TestCase):
     self.assertEqual(repr(second_deck), "Deck: [Card(10 of triangles), Card(10 of squares), Card(10 of circles)]")
 
   def test_draw_top(self):
+    "Test the draw_top method of the Deck class"
+
     first_deck = Deck([1], ['spades', 'clubs'])
 
     expected_first_draw = first_deck.card_list[-1]
@@ -120,6 +145,8 @@ class TestDeck(unittest.TestCase):
     self.assertRaises(RuntimeError, second_deck.draw_top)
 
   def test_shuffle(self):
+    "Test the shuffle method of the Deck class"
+
     deck = Deck([2, 3, 5, 6, 7], ['diamonds', 'hearts', 'triangles'])
     card_list = deck.card_list.copy()
 
@@ -139,11 +166,18 @@ class TestHand(unittest.TestCase):
   "Test cases specific to the Hand class"
 
   def test_init(self):
-    "Test the init method"
+    """
+    Test the init method
+    
+    Ensures `Hand` can be instantiated without error
+    """
+
     first_hand = Hand([Card(value,'clubs') for value in range(5, 0,-1)])
     second_hand = Hand([Card(2, 'triangles')])
 
   def test_repr(self):
+    "Test the __repr__ magic method of the Hand class"
+
     first_hand = Hand([Card(value,'clubs') for value in range(5, 2,-1)])
     self.assertEqual(repr(first_hand), "Hand: [Card(5 of clubs), Card(4 of clubs), Card(3 of clubs)]")
 
@@ -151,6 +185,7 @@ class TestHand(unittest.TestCase):
     self.assertEqual(repr(second_hand), "Hand: [Card(2 of triangles)]")
 
   def test_play(self):
+    "Test the play method of the Hand class"
     hand = Hand([Card(5,'clubs'), Card(4,'clubs')])
 
     self.assertRaises(RuntimeError, hand.play, Card(5, 'diamonds'))

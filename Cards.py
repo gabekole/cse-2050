@@ -2,7 +2,10 @@ import random
 
 class Card:
     """
-    Represents a playing card.
+    A class to represent a playing card.
+    Attributes:
+        value (int): value of the card
+        suit (str): suit of the card
     """
 
     def __init__(self, value, suit):
@@ -47,7 +50,11 @@ class Card:
 
 class Deck:
     """
-    Represents a deck of playing cards.
+    A class to represent a deck of playing cards.
+    Attributes:
+        card_list (list): a list of cards in the deck.
+        values (list): list of card values, default is [1, 2, ..., 13].
+        suits (list): list of card suits, default is ['clubs', 'diamonds', 'hearts', 'spades'].
     """
 
     def __init__(self, values = [i for i in range(1, 14)], suits = ['clubs', 'diamonds', 'hearts', 'spades']):
