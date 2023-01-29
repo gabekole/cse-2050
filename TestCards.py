@@ -16,10 +16,10 @@ class TestCard(unittest.TestCase):
 
   def test_repr(self):
     "Test the repr method of the card class"
-    self.assertEqual(Card(13, 'spades'), "Card(13 of spades)")
-    self.assertEqual(Card(3, 'hearts'), "Card(3 of hearts)")
-    self.assertEqual(Card(2, 'clubs'), "Card(2 of clubs)")
-    self.assertEqual(Card(5, 'diamonds'), "Card(5 of diamonds)")
+    self.assertEqual(repr(Card(13, 'spades')), "Card(13 of spades)")
+    self.assertEqual(repr(Card(3, 'hearts')), "Card(3 of hearts)")
+    self.assertEqual(repr(Card(2, 'clubs')), "Card(2 of clubs)")
+    self.assertEqual(repr(Card(5, 'diamonds')), "Card(5 of diamonds)")
 
   def test_lt(self):
     self.assertTrue(Card(5, 'a') < Card(3, 'b'))
@@ -41,72 +41,73 @@ class TestDeck(unittest.TestCase):
   "Test cases specific to the Deck class"
   def test_init(self):
     "Test the init method"
-    first_hand = Hand([1, 2], ['clubs', 'diamonds'])
-    second_hand = Hand()
+    first_deck = Deck([1, 2], ['clubs', 'diamonds'])
+    second_deck = Deck()
 
-    expected_first_hand = [Card(1, 'clubs'), Card(2, 'clubs'), Card(1, 'diamonds'), Card(2, 'diamonds')]
+    expected_first_deck = [Card(1, 'clubs'), Card(2, 'clubs'), Card(1, 'diamonds'), Card(2, 'diamonds')]
     
-    self.assertEqual(sorted(first_hand.card_list), sorted(expected_first_hand))
-    self.assertTrue(len(second_hand.card_list) == 52)
+    self.assertEqual(sorted(first_deck.card_list), sorted(expected_first_deck))
+    self.assertTrue(len(second_deck.card_list) == 52)
 
   def test_len(self):
-    first_hand = Hand([1, 2], ['clubs', 'diamonds'])
-    self.assertEqual(len(first_hand), 2*2)
+    first_deck = Deck([1, 2], ['clubs', 'diamonds'])
+    self.assertEqual(len(first_deck), 2*2)
+    self.assertEqual(len(first_deck.card_list), 2*2)
 
-    second_hand = Hand()
-    self.assertEqual(len(second_hand), 13*4)
+    second_deck = Deck()
+    self.assertEqual(len(second_deck), 13*4)
 
-    third_hand = Hand([10, 11, 12], ['triangles', 'squares', 'circles'])
-    self.assertEqual(len(third_hand), 3*3)
+    third_deck = Deck([10, 11, 12], ['triangles', 'squares', 'circles'])
+    self.assertEqual(len(third_deck), 3*3)
 
   def test_sort(self):
-    first_hand = Hand([2, 1], ['clubs', 'diamonds'])
-    first_hand_sorted = first_hand.sort()
+    first_deck = Deck([2, 1], ['clubs', 'diamonds'])
+    first_deck.sort()
 
-    self.assertEqual(sorted(first_hand.card_list), first_hand_sorted.card_list)
+    self.assertEqual(sorted(first_deck.card_list), first_deck.card_list)
 
-    second_hand = Hand([10, 11, 12], ['triangles', 'squares', 'circles'])
-    second_hand_sorted = second_hand.sort()
+    second_deck = Deck([10, 11, 12], ['triangles', 'squares', 'circles'])
+    second_deck.sort()
 
-    self.assertEqual(sorted(second_hand.card_list), second_hand_sorted.card_list)
+    self.assertEqual(sorted(second_deck.card_list), second_deck.card_list)
 
-    third_hand = Hand([10, 11, 12], ['squares', 'circles'])
-    third_hand_sorted = third_hand.sort()
+    third_deck = Deck([10, 11, 12], ['squares', 'circles'])
+    third_deck.sort()
 
-    self.assertEqual(sorted(third_hand.card_list), third_hand_sorted.card_list)
+    self.assertEqual(sorted(third_deck.card_list), third_deck.card_list)
 
   def test_repr(self):
-    first_hand = Hand([2, 1], ['clubs', 'diamonds'])
-    self.assertEqual(repr(first_hand.card_list), "Deck: [Card(2 of clubs), Card(1 of clubs), Card(2 of diamonds), Card(1 of clubs)]")
+    first_deck = Deck([2], ['clubs', 'diamonds'])
+    self.assertEqual(repr(first_deck), "Deck: [Card(2 of clubs), Card(2 of diamonds)]")
 
-    second_hand = Hand([10], ['triangles', 'squares', 'circles'])
-    self.assertEqual(repr(second_hand.card_list), "Deck: [Card(10 of triangles), Card(10 of squares), Card(10 of circles)]")
+    second_deck = Deck([10], ['triangles', 'squares', 'circles'])
+    self.assertEqual(repr(second_deck), "Deck: [Card(10 of triangles), Card(10 of squares), Card(10 of circles)]")
 
   def test_draw_top(self):
-    first_hand = Hand([1], ['clubs', 'diamonds'])
+    first_deck = Deck([1], ['spades', 'clubs'])
 
-    expected_first_draw = first_hand.card_list[-1]
-    expected_second_draw = first_hand.card_list[-2]
+    expected_first_draw = first_deck.card_list[-1]
+    expected_second_draw = first_deck.card_list[-2]
 
-    self.assertEqual(first_hand.draw_top(), expected_first_draw)
-    self.assertEqual(first_hand.draw_top(), expected_second_draw)
+    self.assertEqual(first_deck.draw_top(), expected_first_draw)
+    self.assertEqual(first_deck.draw_top(), expected_second_draw)
 
-    self.assertRaises(RuntimeError, first_hand.draw_top())
+    self.assertRaises(RuntimeError, first_deck.draw_top)
 
 
-    second_hand = Hand([2, 1], ['clubs', 'diamonds'])
+    second_deck = Deck([5, 7], ['diamonds', 'hearts'])
 
-    expected_second_draw = second_hand.card_list[-1]
-    expected_second_draw = second_hand.card_list[-2]
-    expected_third_draw = second_hand.card_list[-3]
-    expected_fourth_draw = second_hand.card_list[-4]
+    expected_first_draw = second_deck.card_list[-1]
+    expected_second_draw = second_deck.card_list[-2]
+    expected_third_draw = second_deck.card_list[-3]
+    expected_fourth_draw = second_deck.card_list[-4]
 
-    self.assertEqual(second_hand.draw_top(), expected_second_draw)
-    self.assertEqual(second_hand.draw_top(), expected_second_draw)
-    self.assertEqual(second_hand.draw_top(), expected_third_draw)
-    self.assertEqual(second_hand.draw_top(), expected_fourth_draw)
+    self.assertEqual(second_deck.draw_top(), expected_first_draw)
+    self.assertEqual(second_deck.draw_top(), expected_second_draw)
+    self.assertEqual(second_deck.draw_top(), expected_third_draw)
+    self.assertEqual(second_deck.draw_top(), expected_fourth_draw)
 
-    self.assertRaises(RuntimeError, second_hand.draw_top())
+    self.assertRaises(RuntimeError, second_deck.draw_top)
 
   def test_shuffle(self):
     pass
@@ -131,17 +132,17 @@ class TestHand(unittest.TestCase):
   def test_play(self):
     hand = Hand([Card(5,'clubs'), Card(4,'clubs')])
 
-    self.assertRaises(RuntimeError, hand.play(Card(5, 'diamonds')))
-    self.assertRaises(RuntimeError, hand.play(Card(2, 'clubs')))
+    self.assertRaises(RuntimeError, hand.play, Card(5, 'diamonds'))
+    self.assertRaises(RuntimeError, hand.play, Card(2, 'clubs'))
 
-    hand.play(5, 'clubs')
+    hand.play(Card(5, 'clubs'))
     self.assertEqual(hand.card_list, [Card(4, 'clubs')])
 
-    hand.play(4, 'clubs')
+    hand.play(Card(4, 'clubs'))
     self.assertEqual(hand.card_list, [])
 
-    self.assertRaises(RuntimeError, hand.play(5, 'clubs'))
-    self.assertRaises(RuntimeError, hand.play(4, 'clubs'))
+    self.assertRaises(RuntimeError, hand.play, Card(5, 'clubs'))
+    self.assertRaises(RuntimeError, hand.play, Card(4, 'clubs'))
 
 
 

@@ -36,16 +36,17 @@ class Deck:
         self.card_list = sorted(self.card_list)
 
     def __repr__(self):
-        result = "Deck: ["
-        result += ", ".join([repr(card) for card in self.card_list])
-        result += "]"
+        cards = ", ".join([repr(card) for card in self.card_list])
         
-        return result
+        return f'Deck: [{cards}]'
 
     def shuffle(self):
         random.shuffle(self.card_list)
 
     def draw_top(self):
+        if len(self.card_list) <= 0:
+            raise RuntimeError
+
         card = self.card_list.pop()
 
         return card
