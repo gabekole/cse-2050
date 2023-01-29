@@ -4,8 +4,10 @@ import random
 
 class TestCard(unittest.TestCase):
   "Test cases specific to the Card class"
+
   def test_init(self):
     "Test the init method of the Card class"
+
     self.assertEqual(Card(6, 'spades').value, 6)
     self.assertEqual(Card(6, 'spades').suit, 'spades')
     self.assertEqual(Card(2, 'hearts').value, 2)
@@ -17,12 +19,15 @@ class TestCard(unittest.TestCase):
 
   def test_repr(self):
     "Test the repr method of the card class"
+
     self.assertEqual(repr(Card(13, 'spades')), "Card(13 of spades)")
     self.assertEqual(repr(Card(3, 'hearts')), "Card(3 of hearts)")
     self.assertEqual(repr(Card(2, 'clubs')), "Card(2 of clubs)")
     self.assertEqual(repr(Card(5, 'diamonds')), "Card(5 of diamonds)")
 
   def test_lt(self):
+    "Test the __lt__ magic method of the Card class"
+
     self.assertTrue(Card(5, 'a') < Card(3, 'b'))
     self.assertTrue(Card(2, 'clubs') < Card(4, 'hearts'))
     self.assertTrue(Card(4, 'diamonds') < Card(2, 'spades'))
@@ -32,6 +37,8 @@ class TestCard(unittest.TestCase):
     self.assertFalse(Card(3, 'spades') < Card(5, 'diamonds'))
 
   def test_eq(self):
+    "Test the __eq__ magic method of the Card class"
+
     self.assertTrue(Card(5, 'a') == Card(5, 'a'))
     self.assertTrue(Card(4, 'diamonds') == Card(4, 'diamonds'))
 
@@ -40,8 +47,10 @@ class TestCard(unittest.TestCase):
 
 class TestDeck(unittest.TestCase):
   "Test cases specific to the Deck class"
+
   def test_init(self):
     "Test the init method"
+    
     first_deck = Deck([1, 2], ['clubs', 'diamonds'])
     second_deck = Deck()
 
