@@ -1,3 +1,5 @@
+import time
+
 def find_pairs_naive(l1, target):
     """
     Returns a set of items in the list that sum to the target
@@ -42,3 +44,25 @@ def find_pairs_optimized(l1, target):
         history_set.add( current_num )
     
     return result_set
+
+
+def measure_min_time(func, args, n_trials = 10):
+    """
+    Return the minimum amount of time accross `n_trials` runs of the provided function
+
+    Note: Arguments must be packed as a tuple
+    """
+
+    fastest_trial = float('inf')
+
+    for _ in range(n_trials):
+        start_time = time.time()
+
+        func(*args)
+
+        end_time = time.time()
+        runtime_in_seconds = (end_time - start_time) / 1000.0
+
+        fastest_trial = min(runtime_in_seconds, fastest_trial)
+
+    return fastest_trial
