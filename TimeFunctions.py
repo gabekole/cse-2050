@@ -21,7 +21,7 @@ def time_function(func, arg, n_trials = 10):
         fastest_trial = min(runtime_in_seconds, fastest_trial)
 
     return fastest_trial
-    
+
 def time_function_flexible(func, args, n_trials = 10):
     """
     Return the number of miliseconds required to run the provided function
