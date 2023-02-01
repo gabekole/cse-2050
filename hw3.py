@@ -1,4 +1,4 @@
-def find_pair_naive(l1, target):
+def find_pairs_naive(l1, target):
     """
     Returns a set of items in the list that sum to the target
             
@@ -12,8 +12,8 @@ def find_pair_naive(l1, target):
 
     result = set()
 
-    for x in l1:
-        for y in l1:
+    for idx, x in enumerate(l1):
+        for y in l1[idx:]:
             if x + y == target:
                 result.add( (x, y) )
 
@@ -37,7 +37,7 @@ def find_pairs_optimized(l1, target):
 
         if compliment in history_set:
             
-            result_set.add( compliment, current_num )
+            result_set.add( (compliment, current_num) )
 
         history_set.add( current_num )
     
