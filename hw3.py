@@ -11,6 +11,10 @@ def find_pairs_naive(l1, target):
 
     Note:
         Utilizes a slow naive approach
+
+    Time Complexity:
+        For each item in the list, on average, half the list must be traversed 
+        This results in a O(n^2) time complexity due to the nesting of two loops.
     """
 
     result = set()                      # 2
@@ -31,6 +35,11 @@ def find_pairs_optimized(l1, target):
     Args:
         l1 (list): the list to find pairs in.
         target (number): the summation target.
+
+    Time Complexity:
+        For each item in the list, one set lookup and addition must be performed
+        Since these are O(1) operations, the total time complexity o fthe function
+        O(n) since the list is only iterated over once. 
     """
 
     history_set = set() # Set to store past numbers     # 2 (create, then assign)
