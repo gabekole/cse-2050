@@ -70,17 +70,17 @@ def measure_min_time(func, args):
     return fastest_trial
 
 
-print ("{:<15} {:<15} {:<15}".format('n','naive','optimized'))
-print("*"*45)
-for n in [10, 50, 100, 150, 200, 300, 500]:
+# print ("{:<15} {:<15} {:<15}".format('n','naive','optimized'))
+# print("*"*45)
+# for n in [10, 50, 100, 150, 200, 300, 500]:
     
-    random.seed(1)
-    n_size_list = random.sample(range(1, 600), n)
-    random_target = random.randint(50, 400)
+#     random.seed(1)
+#     n_size_list = random.sample(range(1, 600), n)
+#     random_target = random.randint(50, 400)
 
-    naive_result = measure_min_time(find_pairs_naive, (n_size_list, random_target))
-    optimized_result = measure_min_time(find_pairs_optimized, (n_size_list, random_target))
+#     naive_result = measure_min_time(find_pairs_naive, (n_size_list, random_target))
+#     optimized_result = measure_min_time(find_pairs_optimized, (n_size_list, random_target))
 
-    print("{:<15} {:<15} {:<15}".format(n, f'{naive_result:.4f}', f'{optimized_result:.4f}' ))
+#     print("{:<15} {:<15} {:<15}".format(n, f'{naive_result:.4f}', f'{optimized_result:.4f}' ))
 
     
