@@ -73,12 +73,13 @@ class LinkedList:
     # e.g. DO NOT use an empty list
     def __init__(self, items=None):
         self._head = None
-        self._len = 0
         self._tail = None
+      
+        self._len = 0
       
         'initialize a new LinkedList w/ optional collection items'
         if items is not None and len(items) > 0:
-          for item in self.items:
+          for item in items:
             self.add_last(item)
         
 
@@ -119,22 +120,29 @@ class LinkedList:
     def remove_first(self):
         'removes item from beginning of linked list'
         # Edge case - cannot remove from empty
-        if 
+        if len(self) <= 0:
+          raise RuntimeError('Cannot Remove from empty linked list')
         
         # Edge case - update tail if this is the last node
-
+        if self._head == self._tail:
+          current_value = self._head.item
+          
+          self._head = None
+          self._tail = None
+          self._len = 0
+          return current_value
 
         # store item in temporary variable
-        
+        previous_first = self._head
         
         # update self._head
-
+        self._head = self._head._next
 
         # update len
-
+        self._len -= 1
 
         # return item from old head
-
+        return previous_first.item
 
     def __len__(self):
         'returns number of nodes in Linked list'
