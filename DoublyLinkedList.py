@@ -33,7 +33,11 @@ class DoublyLinkedList:
     def add_first(self, item):
         'adds item to front of dll'
         # add new node as head
-        self._head = Node(item, _next=self._head, _prev=None)
+
+        node = Node(item, _next=self._head, _prev=None)
+        self._nodes[item] = node
+
+        self._head = node
         self._len += 1
         
         # if that was the first node
@@ -45,7 +49,11 @@ class DoublyLinkedList:
     def add_last(self, item):
         'adds item to end of dll'
         # add new node as head
-        self._tail = Node(item, _next=None, _prev=self._tail)
+
+        node = Node(item, _next=None, _prev=self._tail)
+        self._nodes[item] = node
+
+        self._tail = node
         self._len += 1
         
         # if that was the first node
@@ -65,6 +73,9 @@ class DoublyLinkedList:
         self._head = self._head._next
         self._len -= 1
 
+        # Remove from dictionary
+        self._nodes.pop(item)
+
         # was that the last node?
         if len(self) == 0: self._tail = None
 
@@ -83,6 +94,9 @@ class DoublyLinkedList:
         self._tail = self._tail._prev
         self._len -= 1
 
+        # Remove from dictionary
+        self._nodes.pop(item)
+
         # was that the last node?
         if len(self) == 0: self._head = None
 
@@ -90,14 +104,39 @@ class DoublyLinkedList:
 
         return item
         
-    # TODO: Add a docstring and implement
     def __contains__(self, item):
-        raise NotImplementedError
+        """
+        Checks whether the provided item is present in the list
 
-    # TODO: Add a docstring and implement
+        Returns true, value
+        """
+
+        return item in self._nodes
+
+
     def neighbors(self, item):
-        raise NotImplementedError
+        """
+        Returns the left and right neigbors of the provided value in the list
 
-    # TODO: Add a docstring and implement
+        Returns tuple: (left item, right item)
+
+        Note: `left item` or `right item` may be None if the item has no node to its left or right
+
+        Note: Raises KeyError when item is not in the list
+        """
+
+        node = self._nodes[item]
+
+        return (node._prev.item, node._next.item)
+
+
     def remove_node(self, item):
-        raise NotImplementedError
+        """
+        Remove an item from the list by its value
+        
+        Note: Throws KeyError when item is not in the list
+
+        Returns nothing.
+        """
+
+        self._nodes.pop(item)
