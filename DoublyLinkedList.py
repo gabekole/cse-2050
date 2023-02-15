@@ -127,7 +127,15 @@ class DoublyLinkedList:
 
         node = self._nodes[item]
 
-        return (node._prev.item, node._next.item)
+        left_item = None
+        if node._prev is not None:
+            left_item = node._prev.item
+
+        right_item = None
+        if node._next is not None:
+            right_item = node._next.item
+
+        return (left_item, right_item)
 
 
     def remove_node(self, item):

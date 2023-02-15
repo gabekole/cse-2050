@@ -74,12 +74,37 @@ class testDLL(unittest.TestCase):
                 if i%2: self.assertEqual(dll.remove_last(), n-i) # odd numbers: remove last
                 else: self.assertEqual(dll.remove_first(), n-2-i) # even numbers: remove first
 
-    # TODO: Add docstrings to and implement the unittests below
     def test_contains(self):
-        pass
+        dll = DLL()
+
+        for i in range(10):
+            dll.add_last(i)
+        
+        self.assertTrue( 1 in dll )
+        self.assertTrue( 5 in dll )
+        self.assertTrue( 9 in dll )
+
+        self.assertFalse(11 in dll)
+        self.assertFalse(-1 in dll)
 
     def test_neighbors(self):
-        pass
+        dll = DLL()
+
+        dll.add_first(1)
+
+        self.assertEqual( dll.neighbors(1), (None, None) )
+
+
+        for i in range(2, 10):
+            dll.add_last(i)
+
+        self.assertEqual( dll.neighbors(2), (1, 3))
+        self.assertEqual( dll.neighbors(1), (None, 2))
+        self.assertEqual( dll.neighbors(9), (8, None))
+        self.assertEqual( dll.neighbors(3), (2, 4))
+
+        self.assertRaises(KeyError, dll.neighbors, 11)
+        self.assertRaises(KeyError, dll.neighbors, -1)
 
     def test_remove_item(self):
         pass
