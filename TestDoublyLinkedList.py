@@ -103,10 +103,37 @@ class testDLL(unittest.TestCase):
         self.assertEqual( dll.neighbors(9), (8, None))
         self.assertEqual( dll.neighbors(3), (2, 4))
 
-        self.assertRaises(KeyError, dll.neighbors, 11)
-        self.assertRaises(KeyError, dll.neighbors, -1)
+        self.assertRaises(RuntimeError, dll.neighbors, 11)
+        self.assertRaises(RuntimeError, dll.neighbors, -1)
 
     def test_remove_item(self):
-        pass
+        dll = DLL()
+
+
+        self.assertRaises( RuntimeError, dll.remove_node, 0)
+        self.assertRaises( RuntimeError, dll.remove_node, 1)
+        self.assertRaises( RuntimeError, dll.remove_node, 10)
+
+        for i in range(1, 4):
+            dll.add_last(i)
+
+        self.assertTrue(1 in dll)
+        dll.remove_node(1) # Test remove head
+        self.assertFalse(1 in dll)
+
+        self.assertTrue(3 in dll)
+        dll.remove_node(3) # Test remove tail
+        self.assertFalse(3 in dll)
+
+        self.assertTrue(2 in dll)
+        dll.remove_node(2) # Test remove sole elemenet
+        self.assertFalse(2 in dll)
+
+        for i in range(3):
+            dll.add_last(i)
+
+        dll.remove_node(2)
+        self.assertFalse(2 in dll)
+
 
 unittest.main()

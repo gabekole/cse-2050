@@ -122,8 +122,11 @@ class DoublyLinkedList:
 
         Note: `left item` or `right item` may be None if the item has no node to its left or right
 
-        Note: Raises KeyError when item is not in the list
+        Note: Raises RuntimeError when item is not in the list
         """
+
+        if item not in self._nodes:
+            raise RuntimeError("Cannot retrieve item that is not in list")
 
         node = self._nodes[item]
 
@@ -142,9 +145,29 @@ class DoublyLinkedList:
         """
         Remove an item from the list by its value
         
-        Note: Throws KeyError when item is not in the list
+        Note: Throws RuntimeError when item is not in the list
 
         Returns nothing.
         """
+        if item not in self._nodes:
+            raise RuntimeError("Cannot Remove item that is not in list")
+
+        node = self._nodes[item]
+
+        if(node == self._head and node == self._tail):
+            self._head = None
+            self._tail = None
+
+        elif(node == self._head):
+            self._head = self._head._next
+            self._head._prev = None
+
+        elif(node == self._tail):
+            self._tail = self._tail.prev
+            self._tail.next = None
+
+        else:
+            node._prev._next = node._next
+            node._next._prev = node._prev
 
         self._nodes.pop(item)
