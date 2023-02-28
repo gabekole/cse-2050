@@ -4,10 +4,10 @@ import unittest
 class TestSolvePuzzle(unittest.TestCase):
         def testClockwise(self):
                 """Tests a board solveable using only CW moves"""
-                # self.assertTrue(puzzle([1, 0]))
-                # self.assertTrue(puzzle([2, 0, 0]))
-                # self.assertTrue(puzzle([1, 1, 3]))
-                # self.assertTrue(puzzle([1, 2, 1, 2]))
+                self.assertTrue(puzzle([1, 0]))
+                self.assertTrue(puzzle([2, 0, 0]))
+                self.assertTrue(puzzle([1, 1, 3]))
+                self.assertTrue(puzzle([1, 2, 1, 2]))
 
         def testCounterClockwise(self):
                 """Tests a board solveable using only CCW moves"""
@@ -22,8 +22,6 @@ class TestSolvePuzzle(unittest.TestCase):
                 self.assertTrue(puzzle([4, 1, 2, 3, 4]))
                 self.assertTrue(puzzle([49, 1, 5, 9, 10]))
                 
-                
-        
         def testUnsolveable(self):
                 """Tests an unsolveable board"""
                 self.assertFalse(puzzle([7, 1, 2, 3, 2, 9, 99]))
