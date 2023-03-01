@@ -21,7 +21,6 @@ class Game():
 
 
     ########################################################
-    # TODO - Main recursive method. Add your algorithm here.
     def find_route(self, currow, curcol, curscore, curpath):
         
         if not self._maze.is_move_in_maze(currow, curcol):

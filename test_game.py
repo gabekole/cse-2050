@@ -25,9 +25,9 @@ class TestGame(unittest.TestCase):
         score, path = testgame.find_route(start[0], start[1], 0, list())
 
         # If you need to debug a given test case, it might be helpful to use one or more of these print statements
-        print(grid)
-        print("path", path)        
-        print(grid._print_maze(path))
+        # print(grid)
+        # print("path", path)        
+        # print(grid._print_maze(path))
 
         # Each test should assert the correct wining score and the correct winning path
         self.assertEqual(score, 49)
@@ -64,7 +64,7 @@ class TestGame(unittest.TestCase):
         self.assertEqual(score, 0)
         self.assertEqual(path, [(1, 0), (1, 1)])
 
-    def test3_4x4_grid(self):
+    def test4_4x4_grid(self):
         grid = maze.Maze(4, 4)
         grid._set_maze([["*", 1,  "*",   1],
                         [2,   5,  "*",  "*"],
@@ -77,6 +77,23 @@ class TestGame(unittest.TestCase):
         score, path = testgame.find_route(start[0], start[1], 0, list())
         self.assertEqual(score, 10)
         self.assertEqual(path, [(0, 1), (1, 1), (1, 0), (2, 0), (3, 0)])
+
+    def test3_few_walls(self):
+        grid = maze.Maze(5, 5)
+        # Set the maze with few walls
+        grid._set_maze([["*", "*", "*", "*", "*"],
+                        [1,   1,   10,   1,  1],
+                        ["*", "*", 10, "*",  1],
+                        [1,   1,    1,   1,  1],
+                        ["*", "*", "*", "*", "*"]])
+        start = (1, 0)
+        end = (3, 0)
+        grid.set_start_finish(start, end)
+        testgame = game.Game(grid)
+        score, path = testgame.find_route(start[0], start[1], 0, list())
+        # Check that the correct score and path are returned
+        self.assertEqual(score, 1+10+10+1+1)
+        self.assertEqual(path, [(1, 0), (1, 1), (1, 2), (2, 2), (3, 2), (3, 1), (3, 0)])
 
 if __name__ == '__main__':
     unittest.main()
