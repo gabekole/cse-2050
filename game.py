@@ -12,6 +12,7 @@ class Game():
 
     def _is_move_available(self, row, col, path):
         '''If (row, col) is already in the solved path then it is not available'''
+
         return (row, col) not in path
 
     def _is_puzzle_solved(self, row, col):
@@ -22,7 +23,37 @@ class Game():
     ########################################################
     # TODO - Main recursive method. Add your algorithm here.
     def find_route(self, currow, curcol, curscore, curpath):
-        pass
+        
+        if not self._maze.is_move_in_maze(currow, curcol):
+            return (-1, curpath)
+        
+        if self._is_puzzle_solved(currow, curcol):
+            final_path = curpath.copy()
+            final_path.append((currow, curcol))
+
+            return (curscore, final_path)
+        
+        if not self._is_move_available(currow, curcol, curpath):
+            return (-1, curpath)
+        
+        if self._maze.is_wall(currow, curcol):
+            return (-1, curpath)
+    
+        newpath = curpath.copy()
+        newscore = curscore + self._maze.make_move(currow, curcol, newpath)
+    
+        directions = (1, 0), (-1, 0), (0, 1), (0, -1)
+        results = []
+
+        for dir in directions:
+            row = currow + dir[0]
+            col = curcol + dir[1]
+
+            results.append(self.find_route(row, col, newscore, newpath))
+
+        best_path = max(results, key = lambda item : item[0])
+
+        return best_path
 
 
 

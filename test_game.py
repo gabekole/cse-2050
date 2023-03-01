@@ -33,8 +33,36 @@ class TestGame(unittest.TestCase):
         self.assertEqual(score, 49)
         self.assertEqual(path, [(0, 1), (1, 1), (1, 0), (2, 0), (3, 0), (4, 0), (4, 1), (4, 2), (3, 2), (3, 3), (3, 4), (2, 4), (1, 4), (0, 4), (0, 3)])
 
-    #############################################
-    # TODO - add the rest of your test cases here
+    def test2_no_path(self):
+        '''Test case where no path exists between start and end points'''
+
+        # Create the maze grid
+        grid = maze.Maze(3, 3)
+        grid._set_maze([["*", "*",  "*"],
+                        [2,   5,  "*"],
+                        [3,  "*", "*"]])
+        start = (1, 0)
+        end = (2, 2)
+        grid.set_start_finish(start, end)
+        testgame = game.Game(grid)
+        score, path = testgame.find_route(start[0], start[1], 0, list())
+        self.assertEqual(score, -1)
+
+    def test3_one_step_path(self):
+        '''Test case where start and end points are adjacent'''
+
+        # Create the maze grid
+        grid = maze.Maze(3, 3)
+        grid._set_maze([["*", "*",  "*"],
+                        [2,   5,  "*"],
+                        [3,  "*", "*"]])
+        start = (1, 0)
+        end = (1, 1)
+        grid.set_start_finish(start, end)
+        testgame = game.Game(grid)
+        score, path = testgame.find_route(start[0], start[1], 0, list())
+        self.assertEqual(score, 0)
+        self.assertEqual(path, [(1, 0), (1, 1)])
 
 if __name__ == '__main__':
     unittest.main()
