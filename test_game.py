@@ -64,5 +64,19 @@ class TestGame(unittest.TestCase):
         self.assertEqual(score, 0)
         self.assertEqual(path, [(1, 0), (1, 1)])
 
+    def test3_4x4_grid(self):
+        grid = maze.Maze(4, 4)
+        grid._set_maze([["*", 1, "*",  1],
+                        [2,  5, "*",  "*"],
+                        [3,  "*", 4,  8],
+                        [9,  "*", "*",  7]])
+        start = (0, 1)
+        end = (3, 3)
+        grid.set_start_finish(start, end)
+        testgame = game.Game(grid)
+        score, path = testgame.find_route(start[0], start[1], 0, list())
+        self.assertEqual(score, 31)
+        self.assertEqual(path, [(0, 1), (1, 1), (2, 1), (3, 1), (3, 2), (3, 3)])
+
 if __name__ == '__main__':
     unittest.main()
