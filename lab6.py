@@ -1,3 +1,5 @@
+from math import floor
+
 class OrderedList:
     def __init__(self, items=None):
         """Initialize an ordered list. If `items` is specified, the OrderedList starts with the items in that collection"""
@@ -28,7 +30,7 @@ class OrderedList:
 
     def __contains__(self, item):
         """returns true if there is an item of the list equal to item."""
-        return self._bs(item, 0, len(self)) # You'll have to implement _bs() for this to work
+        return self._bs(item) # You'll have to implement _bs() for this to work
 
         # The lines below implement contains with different algs.
         # Feel free to try them out, but they are both too slow
@@ -63,12 +65,27 @@ class OrderedList:
 
 
     # TODO: Implement O(logn) binary search
-    def _bs(self, ???):
+    def _bs(self, item):
         """searches for item using `left` and `right` indices instead of slicing"""
-        # base case - item not in list
 
-        # base case: found item
+        if len(self) == 0:
+            return False
 
-        # item is in smaller half
+        left = 0
+        right = len(self) - 1
+        partition = floor((left + right) / 2)
         
-        # item is in bigger half
+        while(left != right and left+1 != right):
+            if self[partition] == item:
+                return True
+            if self[partition] < item:
+                left = partition
+                partition = floor((left + right) / 2)
+                continue
+            else:
+                right = partition
+                partition = floor((left + right) / 2)
+                continue
+        
+        return self[left] == item or self[right] == item
+        
