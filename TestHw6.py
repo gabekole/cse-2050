@@ -1,18 +1,49 @@
 import unittest
 from hw6 import find_zero, sort_halfsorted, bubble, selection, insertion
-from TestHelpers import generate_halfsorted, is_sorted
-
-# TODO: implement tests for sort_halfsorted
+from TestHelpers import generate_halfsorted, is_sorted 
 
 class Test_SortHalfSorted(unittest.TestCase):
-   def test_halfsorted_bubble(self): pass
+   L1 = [-1, -10, -2, 0, 2, 5, 4]
+   L1_sorted = [-10, -2, -1, 0, 2, 4, 5]
+
+   L2 = [-1, 0, 1]
+   L2_sorted = [-1, 0, 1]
+
+   L3 = [0]
+   L3_sorted = [0]
+
+   L4 = [0, 1, 5, 2]
+   L4_sorted = [0, 1, 2, 5]
+
+   L5 = [-10, -1, -5, -15, 0]
+   L5_sorted = [-15, -10, -5, -1, 0]
+
+   def test_halfsorted_bubble(self):
       # use sort_halfsorted(L, bubble) to test
 
-   def test_halfosrted_selection(self): pass
+      self.assertEqual(bubble(L=self.L1, left=0, right=0), self.L1_sorted)
+      self.assertEqual(bubble(L=self.L2, left=0, right=0), self.L2_sorted)
+      self.assertEqual(bubble(L=self.L3, left=0, right=0), self.L3_sorted)
+      self.assertEqual(bubble(L=self.L4, left=0, right=0), self.L4_sorted)
+      self.assertEqual(bubble(L=self.L5, left=0, right=0), self.L5_sorted)
+
+   def test_halfosrted_selection(self):
       # use sort_halfsorted(L, selection) to test
 
-   def test_halfsorted_insertion(self): pass
+      self.assertEqual(selection(L=self.L1, left=0, right=0), self.L1_sorted)
+      self.assertEqual(selection(L=self.L2, left=0, right=0), self.L2_sorted)
+      self.assertEqual(selection(L=self.L3, left=0, right=0), self.L3_sorted)
+      self.assertEqual(selection(L=self.L4, left=0, right=0), self.L4_sorted)
+      self.assertEqual(selection(L=self.L5, left=0, right=0), self.L5_sorted)
+
+   def test_halfsorted_insertion(self):
       # use sort_halfsorted(L, insertion) to test
+
+      self.assertEqual(insertion(L=self.L1, left=0, right=0), self.L1_sorted)
+      self.assertEqual(insertion(L=self.L2, left=0, right=0), self.L2_sorted)
+      self.assertEqual(insertion(L=self.L3, left=0, right=0), self.L3_sorted)
+      self.assertEqual(insertion(L=self.L4, left=0, right=0), self.L4_sorted)
+      self.assertEqual(insertion(L=self.L5, left=0, right=0), self.L5_sorted)
 
 # Test provided for you
 class Test_FindZero(unittest.TestCase):

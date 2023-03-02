@@ -1,5 +1,3 @@
-# TODO: implement the 4 functions (as always, include docstrings & comments)
-
 def find_zero(L):
     """
     Return the index of 0 in the half-sorted list L in O(log n) time.
@@ -52,7 +50,7 @@ def bubble(L, left, right):
     [4, 2, 5, 6, 8]
     """
 
-   for i in range(left, right - 1):          # iterate through each element in sub-list
+    for i in range(left, right - 1):          # iterate through each element in sub-list
         for j in range(left, right - i - 1):  # iterate through each unsorted element
             if L[j] > L[j + 1]:              # if two adjacent elements are in wrong order
                 L[j], L[j + 1] = L[j + 1], L[j]  # swap them
@@ -82,7 +80,7 @@ def selection(L, left, right):
     >>> L
     [4, 2, 5, 6, 8]
     """
-    
+
     for i in range(left, right - 1):        # iterate through each element in sub-list
         min_index = i                      # initialize min_index as the first unsorted index
         for j in range(i + 1, right):      # iterate through each unsorted index to find the smallest
