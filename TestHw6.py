@@ -1,49 +1,48 @@
 import unittest
 from hw6 import find_zero, sort_halfsorted, bubble, selection, insertion
 from TestHelpers import generate_halfsorted, is_sorted 
+from random import randint
 
 class Test_SortHalfSorted(unittest.TestCase):
-   L1 = [-1, -10, -2, 0, 2, 5, 4]
-   L1_sorted = [-10, -2, -1, 0, 2, 4, 5]
 
-   L2 = [-1, 0, 1]
-   L2_sorted = [-1, 0, 1]
-
-   L3 = [0]
-   L3_sorted = [0]
-
-   L4 = [0, 1, 5, 2]
-   L4_sorted = [0, 1, 2, 5]
-
-   L5 = [-10, -1, -5, -15, 0]
-   L5_sorted = [-15, -10, -5, -1, 0]
+   n = 100
 
    def test_halfsorted_bubble(self):
-      # use sort_halfsorted(L, bubble) to test
+      # Test sort method for lists of various lengths
 
-      self.assertEqual(bubble(L=self.L1, left=0, right=0), self.L1_sorted)
-      self.assertEqual(bubble(L=self.L2, left=0, right=0), self.L2_sorted)
-      self.assertEqual(bubble(L=self.L3, left=0, right=0), self.L3_sorted)
-      self.assertEqual(bubble(L=self.L4, left=0, right=0), self.L4_sorted)
-      self.assertEqual(bubble(L=self.L5, left=0, right=0), self.L5_sorted)
+      L1 = [0, 4, 2, 6, 8, 5]
+      L1_sorted = [0, 2, 4, 5, 6, 8]
+
+      sort_halfsorted(L1, bubble)
+      self.assertEqual(L1, L1_sorted)
+
+
+      for length in range(1, self.n):
+         L = generate_halfsorted(length)[0]
+
+         L_sorted = L.copy()
+         sort_halfsorted(L_sorted, bubble)
+         self.assertEqual(L_sorted, sorted(L), "start: " + str(L))
+
 
    def test_halfosrted_selection(self):
-      # use sort_halfsorted(L, selection) to test
+      # Test sort method for lists of various lengths
 
-      self.assertEqual(selection(L=self.L1, left=0, right=0), self.L1_sorted)
-      self.assertEqual(selection(L=self.L2, left=0, right=0), self.L2_sorted)
-      self.assertEqual(selection(L=self.L3, left=0, right=0), self.L3_sorted)
-      self.assertEqual(selection(L=self.L4, left=0, right=0), self.L4_sorted)
-      self.assertEqual(selection(L=self.L5, left=0, right=0), self.L5_sorted)
+      for length in range(1, self.n):
+         L = generate_halfsorted(length)[0]
+
+         L_sorted = L.copy()
+         sort_halfsorted(L_sorted, selection)
+         self.assertEqual(L_sorted, sorted(L))
 
    def test_halfsorted_insertion(self):
-      # use sort_halfsorted(L, insertion) to test
+      # Test sort method for lists of various lengths
+      for length in range(1, self.n):
+         L = generate_halfsorted(length)[0]
 
-      self.assertEqual(insertion(L=self.L1, left=0, right=0), self.L1_sorted)
-      self.assertEqual(insertion(L=self.L2, left=0, right=0), self.L2_sorted)
-      self.assertEqual(insertion(L=self.L3, left=0, right=0), self.L3_sorted)
-      self.assertEqual(insertion(L=self.L4, left=0, right=0), self.L4_sorted)
-      self.assertEqual(insertion(L=self.L5, left=0, right=0), self.L5_sorted)
+         L_sorted = L.copy()
+         sort_halfsorted(L_sorted, insertion)
+         self.assertEqual(L_sorted, sorted(L))
 
 # Test provided for you
 class Test_FindZero(unittest.TestCase):
@@ -90,4 +89,3 @@ class Test_FindZero(unittest.TestCase):
                         self.assertEqual(find_zero(L), idx_zero)
 
 unittest.main()
-

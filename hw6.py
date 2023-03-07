@@ -45,15 +45,16 @@ def bubble(L, left, right):
     Examples
     --------
     >>> L = [4, 2, 6, 8, 5]
-    >>> bubble(L, 1, 4)
+    >>> bubble(L, 0, 5)
     >>> L
-    [4, 2, 5, 6, 8]
+    [2, 4, 6, 5, 8]
     """
 
-    for i in range(left, right - 1):          # iterate through each element in sub-list
-        for j in range(left, right - i - 1):  # iterate through each unsorted element
-            if L[j] > L[j + 1]:              # if two adjacent elements are in wrong order
+    for i in range(left - 1, right):  # iterate through each element in sub-list
+        for j in range(left + i, right - 1):  # iterate through each unsorted element
+            if L[j] > L[j + 1]:  # if two adjacent elements are in wrong order
                 L[j], L[j + 1] = L[j + 1], L[j]  # swap them
+    
 
 def selection(L, left, right):
     """
@@ -81,9 +82,9 @@ def selection(L, left, right):
     [4, 2, 5, 6, 8]
     """
 
-    for i in range(left, right - 1):        # iterate through each element in sub-list
+    for i in range(left + 1, right - 1):        # iterate through each element in sub-list
         min_index = i                      # initialize min_index as the first unsorted index
-        for j in range(i + 1, right):      # iterate through each unsorted index to find the smallest
+        for j in range(i + 1, right - 1):      # iterate through each unsorted index to find the smallest
             if L[j] < L[min_index]:
                 min_index = j
         if min_index != i:                 # if smallest is not in the correct position
@@ -143,3 +144,7 @@ def sort_halfsorted(L, sort):
     idx_zero = find_zero(L)     # find the 0 index 
     sort(L, 0, idx_zero)        # sort left half
     sort(L, idx_zero+1, len(L)) # sort right half
+
+    print("==============")
+    print(L)
+    print(idx_zero)
