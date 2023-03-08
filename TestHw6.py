@@ -5,7 +5,7 @@ from random import randint
 
 class Test_SortHalfSorted(unittest.TestCase):
 
-   n = 100
+   n = 200
 
    def test_halfsorted_bubble(self):
       # Test sort method for lists of various lengths

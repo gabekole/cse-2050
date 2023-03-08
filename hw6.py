@@ -51,7 +51,7 @@ def bubble(L, left, right):
     """
 
     for i in range(left, right - 1):
-        for j in range(i, right - 1):
+        for j in range(max(0, left-1), right - 1):
             if L[j] > L[j + 1]:
                 L[j], L[j + 1] = L[j + 1], L[j]
 
