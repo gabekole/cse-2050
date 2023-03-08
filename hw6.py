@@ -50,10 +50,10 @@ def bubble(L, left, right):
     [2, 4, 6, 5, 8]
     """
 
-    for i in range(left, right - 1):
-        for j in range(max(0, left-1), right - 1):
-            if L[j] > L[j + 1]:
-                L[j], L[j + 1] = L[j + 1], L[j]
+    for i in range(left, right - 1): # Iterate through all elements of the sub list
+        for j in range(max(0, left-1), right - 1): # Iterate through all elements of the susblist again (truncated at the outer list index)
+            if L[j] > L[j + 1]: # If the current item is greater than the next item, swap them.
+                L[j], L[j + 1] = L[j + 1], L[j] # Swap items
 
     
 
@@ -83,9 +83,9 @@ def selection(L, left, right):
     [4, 2, 5, 6, 8]
     """
 
-    for i in range(left + 1, right - 1):        # iterate through each element in sub-list
+    for i in range(left, right - 1):        # iterate through each element in sub-list
         min_index = i                      # initialize min_index as the first unsorted index
-        for j in range(i + 1, right - 1):      # iterate through each unsorted index to find the smallest
+        for j in range(i + 1, right):      # iterate through each unsorted index to find the smallest
             if L[j] < L[min_index]:
                 min_index = j
         if min_index != i:                 # if smallest is not in the correct position
@@ -108,6 +108,7 @@ def insertion(L, left, right):
     --------
     None. Sorts the list in place.
     """
+
     for i in range(left + 1, right):
         key = L[i]
         j = i - 1
