@@ -109,13 +109,13 @@ def insertion(L, left, right):
     None. Sorts the list in place.
     """
 
-    for i in range(left + 1, right):
-        key = L[i]
-        j = i - 1
-        while j >= left and L[j] > key:
-            L[j + 1] = L[j]
+    for i in range(left + 1, right): # Iterate through all elements of the sublist.
+        key = L[i]  # Get the current element as the key.
+        j = i - 1 # Initialize j as the index of the previous element of the current element.
+        while j >= left and L[j] > key:  # Compare the key with all elements before it.
+            L[j + 1] = L[j]  # Shift elements greater than the key one position to the right.
             j -= 1
-        L[j + 1] = key
+        L[j + 1] = key # Insert the key at the correct position in the sorted sublist.
 
 def sort_halfsorted(L, sort):
     '''Efficiently sorts a list comprising a series of negative items, a single 0, and a series of positive items
