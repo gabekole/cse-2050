@@ -10,8 +10,8 @@ class Test_SortHalfSorted(unittest.TestCase):
    def test_halfsorted_bubble(self):
       # Test sort method for lists of various lengths
 
-      L1 = [0, 4, 2, 6, 8, 5]
-      L1_sorted = [0, 2, 4, 5, 6, 8]
+      L1 = [-1, 0, 3]
+      L1_sorted = [-1, 0, 3]
 
       sort_halfsorted(L1, bubble)
       self.assertEqual(L1, L1_sorted)
@@ -25,7 +25,7 @@ class Test_SortHalfSorted(unittest.TestCase):
          self.assertEqual(L_sorted, sorted(L), "start: " + str(L))
 
 
-   def test_halfosrted_selection(self):
+   def test_half_sorted_selection(self):
       # Test sort method for lists of various lengths
 
       for length in range(1, self.n):

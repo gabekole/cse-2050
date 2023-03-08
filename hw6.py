@@ -50,10 +50,11 @@ def bubble(L, left, right):
     [2, 4, 6, 5, 8]
     """
 
-    for i in range(left - 1, right):  # iterate through each element in sub-list
-        for j in range(left + i, right - 1):  # iterate through each unsorted element
-            if L[j] > L[j + 1]:  # if two adjacent elements are in wrong order
-                L[j], L[j + 1] = L[j + 1], L[j]  # swap them
+    for i in range(left, right - 1):
+        for j in range(i, right):
+            if L[j] > L[j + 1]:
+                L[j], L[j + 1] = L[j + 1], L[j]
+
     
 
 def selection(L, left, right):
@@ -144,7 +145,3 @@ def sort_halfsorted(L, sort):
     idx_zero = find_zero(L)     # find the 0 index 
     sort(L, 0, idx_zero)        # sort left half
     sort(L, idx_zero+1, len(L)) # sort right half
-
-    print("==============")
-    print(L)
-    print(idx_zero)
