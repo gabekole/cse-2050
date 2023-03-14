@@ -2,7 +2,7 @@
 import random
 
 ##### Generate list of numbers #####
-n = 2000 # Max is 2000 due to memory constraints with quicksort
+n = 500 # Max is 2000 due to memory constraints with quicksort
 L1 = [random.randint(0, n) for i in range(n)]
 
 ##### Create file to write to #####
