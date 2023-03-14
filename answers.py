@@ -15,11 +15,11 @@
 #            'alg_e': 'bubble'}
 
 # Fill in your answers as the values in the dict below
-answers = {'alg_a': 'merge',
-           'alg_b': 'selection',
-           'alg_c': 'bubble',
-           'alg_d': 'insertion',
-           'alg_e': 'quick'
+answers = {'alg_a': 'quick',
+           'alg_b': 'merge',
+           'alg_c': 'insertion',
+           'alg_d': 'selection',
+           'alg_e': 'bubble'
           }
 
 valid_ans = {'bubble', 'selection', 'insertion', 'merge', 'quick'}
