@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import savgol_filter
 
-from epic import linear_string, quadratic_string, n_log_n_string, find_substring
+from epic import linear_string, n_log_n_string, find_substring
 
 vowels = set('aeiou')
 

@@ -12,14 +12,6 @@ def linear_string(s):
 
     return False
 
-def quadratic_string(s):
-    for letter in s:
-        for letter in s:
-            if letter == "G":
-                return True
-            
-    return False
-
 vowels = set('aeiou')
 def find_substring(s):
     # find worst substring
@@ -95,7 +87,26 @@ def find_substring(s):
     
     return (first_substring, last_substring)
 
+def find_substring_bruteforce(s):
+    best_string = None
+    worst_string = None
 
+    for start_index, start_letter in enumerate(s):
+        if start_letter not in vowels:
+            continue
 
+        for end_index in range(start_index + 1, len(s)):
+            if s[end_index] in vowels:
+                continue
+            
+            contender_string = s[start_index:(end_index+1)]
+
+            if not worst_string or contender_string > worst_string:
+                worst_string = contender_string
+            
+            if not best_string or contender_string < best_string:
+                best_string = contender_string
+
+    return (best_string, worst_string)
 
 
