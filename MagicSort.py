@@ -28,14 +28,16 @@ def linear_scan(L):
     return -1
 
 
-def reverse_list(L):
+def reverse_list(L, history_set):
+    history_set.add('reverse_list')
+
     for index in range(len(L) // 2):
         j = len(L) - index - 1
 
         L[index], L[j] = L[j], L[index]
 
 
-def insertionsort(L, left=None, right=None):
+def insertionsort(L, history_set,  left=None, right=None):
     """
     Sort a sublist of an array using the insertion sort algorithm.
 
@@ -48,6 +50,8 @@ def insertionsort(L, left=None, right=None):
         None.
 
     """
+    history_set.add('insertionsort')
+
     if left is None:
         left = 0
     if right is None:
@@ -63,14 +67,16 @@ def insertionsort(L, left=None, right=None):
 
 
 def quicksort(L, depth, max_depth, history_set):
+    history_set.add('quicksort')
+
     if len(L) <= 1:
         return L
 
     if depth >= max_depth:
-        return mergesort(L)
+        return mergesort(L, history_set)
 
     if len(L) <= 16:
-        insertionsort(L)
+        insertionsort(L, history_set)
         return L
 
     pivot = L[-1]
@@ -85,6 +91,40 @@ def quicksort(L, depth, max_depth, history_set):
 
     return quicksort(left, depth+1, max_depth, history_set) + [pivot] + quicksort(right, depth+1, max_depth, history_set)
 
-def mergesort(L): pass
+def mergesort(L, history_set):
+
+    history_set.add('mergesort')
    
+    if len(L) > 1:
+        mid = len(L) // 2
+        left_half = L[:mid]
+        right_half = L[mid:]
+
+        mergesort(left_half, history_set)
+        mergesort(right_half, history_set)
+
+        i = j = k = 0
+
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                L[k] = left_half[i]
+                i += 1
+            else:
+                L[k] = right_half[j]
+                j += 1
+            k += 1
+
+        while i < len(left_half):
+            L[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            L[k] = right_half[j]
+            j += 1
+            k += 1
+
+    return L
+
+
 def magic_sort(L): pass
