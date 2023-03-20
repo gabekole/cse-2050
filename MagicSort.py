@@ -94,6 +94,10 @@ def quicksort(L, depth, max_depth, history_set):
 def mergesort(L, history_set):
 
     history_set.add('mergesort')
+    
+    if len(L) <= 16:
+        insertionsort(L, history_set)
+        return L
    
     if len(L) > 1:
         mid = len(L) // 2
@@ -127,4 +131,22 @@ def mergesort(L, history_set):
     return L
 
 
-def magic_sort(L): pass
+def magic_sort(L):
+    result = linear_scan(L)
+
+    algorithms = set()
+
+    if result == 0:
+        return algorithms
+
+    if result == 1:
+        reverse_list(L, algorithms)
+        return algorithms
+
+    if result == 2:
+        insertionsort(L, algorithms)
+        return algorithms
+
+    quicksort(L, 0, log2(len(L))+1, algorithms)
+
+    return algorithms
