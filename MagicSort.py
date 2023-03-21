@@ -6,35 +6,62 @@ from math import log2
 # 2 indicates at most 5 out of place
 # -1 indicates no special cases
 def linear_scan(L):
+    """
+    Scans a list for special cases of sortedness
 
-    out_of_place = 0
-    in_place = 0
+    Args:
+        L (array): The array to be scanned
 
-    for previous, current in zip(L, L[1:]):
+    Returns:
+        An integer with the following meaning:
+            0 indicates list is sorted
+            1 indicates list is reverse sorted
+            2 indicates at most 5 out of place
+            -1 indicates no special cases
+
+    """
+
+    out_of_place = 0 #initialize counter to zero
+    in_place = 0 #initialize counter to zero
+
+    for previous, current in zip(L, L[1:]): #Iterate over list and count number of in place and out of place pairs of items
         if previous > current:
             out_of_place += 1
         else:
             in_place += 1
     
-    if out_of_place == 0: # Sorted
+    if out_of_place == 0: # Sorted if there are no out of place items
         return 0
     
-    if in_place == 0: # Reverse sorted
+    if in_place == 0: # Reverse sorted since every item is not in correct order
         return 1
 
     if out_of_place <= 5: # At most 5 wrong
         return 2
     
-    return -1
+    return -1 
 
 
 def reverse_list(L, history_set):
-    history_set.add('reverse_list')
+    """
+    Scans a list for special cases of sortedness
 
-    for index in range(len(L) // 2):
-        j = len(L) - index - 1
+    Args:
+        L: List to be reversed
+        history_set: Set of algorithms used
 
-        L[index], L[j] = L[j], L[index]
+    Returns:
+        None
+
+    """
+
+
+    history_set.add('reverse_list') # Indicate to user which sorting alogrithms were used
+
+    for index in range(len(L) // 2): # Iterate through each index on the left half of the list
+        j = len(L) - index - 1 # Get index of the current indexes `compliment` on the right half of the list
+
+        L[index], L[j] = L[j], L[index] # Swap the left and right elements of the list
 
 
 def insertionsort(L, history_set,  left=None, right=None):
@@ -43,6 +70,7 @@ def insertionsort(L, history_set,  left=None, right=None):
 
     Args:
         arr (array): The array containing the sublist to be sorted.
+        history_set: Set of algorithms used
         left (int, optional): The left index of the sublist to be sorted. Defaults to None.
         right (int, optional): The right index of the sublist to be sorted. Defaults to None.
 
@@ -50,7 +78,7 @@ def insertionsort(L, history_set,  left=None, right=None):
         None.
 
     """
-    history_set.add('insertionsort')
+    history_set.add('insertionsort') # Add to history set to indicate which algorithms have been used
 
     if left is None:
         left = 0
@@ -67,7 +95,7 @@ def insertionsort(L, history_set,  left=None, right=None):
 
 
 def quicksort(L, depth, max_depth, history_set):
-    history_set.add('quicksort')
+    history_set.add('quicksort') 
 
     if len(L) <= 1:
         return L
