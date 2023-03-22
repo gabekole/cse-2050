@@ -42,7 +42,7 @@ class CustomSet:
         self._L[bucket_index].append(item)
 
         # update length
-        self._L += 1
+        self._len += 1
 
         # rehash if necessary (items >= 2*buckets)
         if len(self) >= 2*self._n_buckets:
