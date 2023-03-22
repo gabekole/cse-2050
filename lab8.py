@@ -6,20 +6,26 @@ class CustomSet:
         self._len = 0                   # Number of items in custom set
         self._L = [[] for i in range(self._n_buckets)]   # List of empty buckets
 
-    # TODO: Implement methods below
+
     def __len__(self):
         """Returns the number of items in CustomSet"""
+        return self._len
 
     def _find_bucket(self, item):
         """Returns the index of the bucket `item` should go in, based on hash(item) and self.n_buckets"""
         # hash(item) returns a nice "random" integer using item.__hash__()
         # Use % to scale that hash to a number between 0 and n_buckets
 
+        return hash(item) % self._len
+
     def __contains__(self, item):
         """Returns True (False) if item is (is not) in the CustomSet"""
         # Find index of bucket `item` should be in, if it is here (self._find_bucket())
-        
+        bucket_index = self._find_bucket(item)
+
         # return True if item is in bucket, false otherwise
+
+        return item in self._L[bucket_index]
 
 
     def add(self, item):
