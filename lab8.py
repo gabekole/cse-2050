@@ -78,6 +78,7 @@ class CustomSet:
             # using a for loop, iterate over every item in this bucket
                 # Find the index of the new bucket for that item
                 # add that item to the correct bucket
+        self._n_buckets = new_buckets
 
         for bucket in self._L:
             for item in bucket:
