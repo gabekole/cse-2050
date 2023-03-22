@@ -16,7 +16,7 @@ class CustomSet:
         # hash(item) returns a nice "random" integer using item.__hash__()
         # Use % to scale that hash to a number between 0 and n_buckets
 
-        return hash(item) % self._len
+        return hash(item) % self._n_buckets
 
     def __contains__(self, item):
         """Returns True (False) if item is (is not) in the CustomSet"""
