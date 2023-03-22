@@ -32,37 +32,57 @@ class CustomSet:
         """Adds a new item to CustomSet. Duplicate adds are ignored - they do not increase the length, but they do not raise an error."""
         # Check if item already here (`item in self`, since we already implemented self.__contains__()).
         # Return early if it's already here - we don't need to do anything
+        if item in self:
+            return
 
         # Find index of bucket `item` should go in (self._find_bucket())
+        bucket_index = self._find_bucket(item)
 
         # Add item to end of bucket
+        self._L[bucket_index].append(item)
 
         # update length
+        self._L += 1
 
         # rehash if necessary (items >= 2*buckets)
+        if len(self) >= 2*self._n_buckets:
+            self._rehash(2*self._n_buckets)
 
 
     def remove(self, item):
         """Removes item from CustomSet. Removing an item not in CustomSet should raise a KeyError."""
         # Check if item is in the CustomSet (`item in self`, since we already implemented self.__contains__()).
         # Raise a KeyError if it is not (and include a helpful message)
+        if item not in self:
+            raise KeyError(f'Attempted to remove item not in set: {item} 😩') # Very helpful 😀
 
         # Find index of bucket `item` is in (self._find_bucket())
+        bucket_index = self._find_bucket(item)
 
         # Remove item from bucket
+        self._L[bucket_index].remove(item)
 
         # update length
+        self._len -= 1
 
         # rehash if necessary (items <= 1/2*buckets, and 1/2*buckets >= min_buckets)
-
+        if len(self) <= 1/2*self._n_buckets and 1/2*self._n_buckets >= self._min_buckets:
+            self._rehash(.5*self._n_buckets)
 
     def _rehash(self, new_buckets):
         """Rehashes every item from a hash table with n_buckets to one with new_buckets. new_buckets will be either 2*n_buckets or 1/2*n_buckets, depending on whether we are reahshing up or down."""
         # Make a new list of `new_buckets` empty lists
+        bucket_list = [[] for i in range(new_buckets)]
 
         # Using a for loop, iterate over every bucket in self._L
             # using a for loop, iterate over every item in this bucket
                 # Find the index of the new bucket for that item
                 # add that item to the correct bucket
 
+        for bucket in self._L:
+            for item in bucket:
+                bucket_index = self._find_bucket(item)
+                bucket_list[bucket_index].append(item)
+
         # Update self._L to point to the new list
+        self._L = bucket_list
