@@ -67,7 +67,7 @@ class CustomSet:
 
         # rehash if necessary (items <= 1/2*buckets, and 1/2*buckets >= min_buckets)
         if len(self) <= 1/2*self._n_buckets and 1/2*self._n_buckets >= self._min_buckets:
-            self._rehash(.5*self._n_buckets)
+            self._rehash(self._n_buckets/2)
 
     def _rehash(self, new_buckets):
         """Rehashes every item from a hash table with n_buckets to one with new_buckets. new_buckets will be either 2*n_buckets or 1/2*n_buckets, depending on whether we are reahshing up or down."""
