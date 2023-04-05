@@ -1,10 +1,38 @@
 class Transaction():
     def __init__(self, from_user, to_user, amount):
-        pass
+        self.from_user = from_user
+        self.to_user = to_user
+        self.amount = amount
+    
+    def __hash__(self):
+        return hash((self.from_user, self.to_user, self.amount))
+    
+    def __eq__(self, other_transaction):
+        from_user = self.from_user == other_transaction.from_user
+        to_user = self.to_user == other_transaction.to_user
+        amount = self.amount == other_transaction.amount
+
+        return from_user and to_user and amount
+
     
 class Block():
-    def __init__(self, transactions=None):
-        pass
+    def __init__(self, transactions=None, previous_block_hash=0):
+        if transactions is not None and isinstance(transactions, tuple):
+            self.transactions = transactions
+        else:
+            self.transactions = ()
+
+        self.previous_block_hash = previous_block_hash
+
+    def __hash__(self):
+        return hash((self.transactions, self.previous_block_hash))
+    
+    def __eq__(self, otb):
+        hash_same = self.previous_block_hash == otb.previous_block_hash
+        transactions_same = self.transactions == otb.transactions
+
+        return hash_same and transactions_same
+
 
 class Ledger():
     def __init__(self):
