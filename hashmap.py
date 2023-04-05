@@ -73,13 +73,13 @@ class HashMap():
         self._len += 1
 
         # rehash if necessary (items >= 2*buckets)
-        if len(self) >= self.load_limit*self._n_buckets:
-            self._rehash(int(self.load_limit*self._n_buckets))
+        if len(self) >= int(self.load_limit*self._n_buckets):
+            self._rehash(int(2*self._n_buckets))
 
 
     def remove(self, key):
-        """Removes item from CustomSet. Removing an item not in CustomSet should raise a KeyError."""
-        # Check if item is in the CustomSet (`item in self`, since we already implemented self.__contains__()).
+        """Removes item from HashMap. Removing an item not in HashMap should raise a KeyError."""
+        # Check if item is in the Hashmap
         # Raise a KeyError if it is not (and include a helpful message)
         if key not in self:
             raise KeyError(f'Attempted to remove key not in map: {key} 😩') # Very helpful 😀
@@ -97,8 +97,8 @@ class HashMap():
         self._len -= 1
 
         # rehash if necessary (items <= 1/2*buckets, and 1/2*buckets >= min_buckets)
-        if len(self) <= (1/2)*self._n_buckets and (1/2)*self._n_buckets >= self._min_buckets:
-            self._rehash(self._n_buckets // 2)
+        if len(self) <= int((1/2)*self._n_buckets) and int((1/2)*self._n_buckets) >= self._min_buckets:
+            self._rehash(int((1/2)*self._n_buckets))
 
 
 
