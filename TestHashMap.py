@@ -5,6 +5,13 @@ from hashmap import HashMap
 
 class TestCustomSet(unittest.TestCase):
     def test_basic_usage(self):
+        """
+        Test the usage of the hashmap class through the addition and removal
+        of arbitrary items of various types.
+        
+        Checks that the HashMap acts as described in the docstring
+        """
+
         myMap = HashMap()
 
         self.assertRaises(KeyError, myMap.get, "HI")
@@ -34,6 +41,12 @@ class TestCustomSet(unittest.TestCase):
         self.assertEqual(len(myMap), 2)
 
     def test_capacity(self):
+        """
+        Tests the behavior of the hashmap by adding a large amount of items
+        and then removing a large amount of items to ensure that the length
+        updates properly and rehashing does not cause any errors.
+        """
+        
         N = 100
 
         bigMap = HashMap()
