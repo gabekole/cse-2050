@@ -22,9 +22,12 @@ class Transaction():
         amount_lt = self.amount < other.amount
 
         return from_user_lt or to_user_lt or amount_lt
+    
+    def __str__(self):
+        return f"from: {self.from_user}, to: {self.to_user}, amount: {self.amount}"
 
 class Block():
-    def __init__(self, transactions=None, previous_block_hash=0):
+    def __init__(self, transactions=None, previous_block_hash=None):
         if transactions is not None and isinstance(transactions, tuple):
             self.transactions = transactions
         else:
@@ -38,7 +41,14 @@ class Block():
 
     def __hash__(self):
         return hash((self.transactions, self.previous_block_hash))
+    
+    def __str__(self):
+        out = "#"*40 + "\n"
+        for trans in self.transactions:
+            out += (str(trans) + "\n")
+        out += "#"*40 + "\n"
 
+        return out
 
 class Ledger():
     def __init__(self):
@@ -49,16 +59,32 @@ class Ledger():
             return False
         balance = self._hashmap.get(user)
         return balance >= amount
+    
+    def __contains__(self, user):
+        return user in self._hashmap
 
     def deposit(self, user, amount):
-        balance = self._hashmap.get(user)
+        balance = 0
+        if user in self:
+            balance = self._hashmap.get(user)
+
         new_balance = balance + amount
         self._hashmap.set(user, new_balance)
     
     def transfer(self, user, amount):
+        if user not in self:
+            raise ValueError(f"User {user} does not exist and therefore is not elligible for transfers")
+
         balance = self._hashmap.get(user)
         new_balance = balance - amount
+
+        if new_balance < 0:
+            raise ValueError(f"User: {user} has insuffient balance: {balance} for transaction amount: {amount}")
+
         self._hashmap.set(user, new_balance)
+
+    def __str__(self):
+        return str(self._hashmap._map)
 
 class Blockchain():
     '''Contains the chain of blocks.'''
@@ -97,32 +123,33 @@ class Blockchain():
         In this assigment, you do not need to understand "mining." Just use this method to 
         provide initial balances to one or more users.'''
         trans = Transaction(self._ROOT_BC_USER, user, self._BLOCK_REWARD)
-        block = Block([trans])
+        block = Block((trans,))
         self.add_block(block)
 
 
     def get_net_transfers(self, block : Block):
         net_transfer_map = HashMap()
         
+        
         # Iterate through all transactions in block to tally net change in accounts
         for transaction in block.transactions:
             # Add change in `to_user`
             if transaction.to_user not in net_transfer_map:
                 net_transfer_map.set(transaction.to_user, transaction.amount)
-            if transaction.to_user in net_transfer_map:
+            elif transaction.to_user in net_transfer_map:
                 balance = net_transfer_map.get(transaction.to_user) + transaction.amount
                 net_transfer_map.set(transaction.to_user, balance)
             
             # Add change in `from_user`
             if transaction.from_user not in net_transfer_map:
                 net_transfer_map.set(transaction.from_user, -transaction.amount)
-            if transaction.from_user in net_transfer_map:
+            elif transaction.from_user in net_transfer_map:
                 balance = net_transfer_map.get(transaction.from_user) - transaction.amount
                 net_transfer_map.set(transaction.from_user, balance)
 
         return net_transfer_map
 
-    def validate_block_transactions(self, net_transfer_map):
+    def _validate_block_transactions(self, net_transfer_map):
         """
         Validates that all users have the finances to make each transaction
 
@@ -145,11 +172,15 @@ class Blockchain():
                 return False
             previous_hash = hash(block)
 
+        return True
+        
+
+
 
     def add_block(self, block : Block):
         net_transfers = self.get_net_transfers(block)
 
-        if not self.validate_block_transactions(net_transfers):
+        if not self._validate_block_transactions(net_transfers):
             return False
         
         previous_block = self._blockchain[-1]
@@ -162,4 +193,5 @@ class Blockchain():
         self._blockchain.append(block)
 
         return True
-            
+
+                
