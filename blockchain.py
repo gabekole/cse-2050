@@ -1,3 +1,5 @@
+from hashmap import HashMap
+
 class Transaction():
     def __init__(self, from_user, to_user, amount):
         self.from_user = from_user
@@ -13,8 +15,14 @@ class Transaction():
         amount = self.amount == other_transaction.amount
 
         return from_user and to_user and amount
-
     
+    def __lt__(self, other):
+        from_user_lt = self.from_user < other.from_user
+        to_user_lt = self.to_user < other.to_user
+        amount_lt = self.amount < other.amount
+
+        return from_user_lt or to_user_lt or amount_lt
+
 class Block():
     def __init__(self, transactions=None, previous_block_hash=0):
         if transactions is not None and isinstance(transactions, tuple):
@@ -24,28 +32,33 @@ class Block():
 
         self.previous_block_hash = previous_block_hash
 
+    def add_transaction(self, transaction):
+        new_transaction_tuple = (*self.transactions, transaction)
+        self.transactions = new_transaction_tuple
+
     def __hash__(self):
         return hash((self.transactions, self.previous_block_hash))
-    
-    def __eq__(self, otb):
-        hash_same = self.previous_block_hash == otb.previous_block_hash
-        transactions_same = self.transactions == otb.transactions
-
-        return hash_same and transactions_same
 
 
 class Ledger():
     def __init__(self):
-        pass
+        self._hashmap = HashMap() # user -> funds
     
-    # def has_funds(self, user, amount):
-    #     if user not in self._hashmap:
-    #         return False
-    #     balance = self._hashmap.get(user)
-    #     return balance >= amount
+    def has_funds(self, user, amount):
+        if user not in self._hashmap:
+            return False
+        balance = self._hashmap.get(user)
+        return balance >= amount
 
     def deposit(self, user, amount):
-        pass
+        balance = self._hashmap.get(user)
+        new_balance = balance + amount
+        self._hashmap.set(user, new_balance)
+    
+    def transfer(self, user, amount):
+        balance = self._hashmap.get(user)
+        new_balance = balance - amount
+        self._hashmap.set(user, new_balance)
 
 class Blockchain():
     '''Contains the chain of blocks.'''
@@ -87,4 +100,66 @@ class Blockchain():
         block = Block([trans])
         self.add_block(block)
 
-    # TODO - add the rest of the code for the class here
+
+    def get_net_transfers(self, block : Block):
+        net_transfer_map = HashMap()
+        
+        # Iterate through all transactions in block to tally net change in accounts
+        for transaction in block.transactions:
+            # Add change in `to_user`
+            if transaction.to_user not in net_transfer_map:
+                net_transfer_map.set(transaction.to_user, transaction.amount)
+            if transaction.to_user in net_transfer_map:
+                balance = net_transfer_map.get(transaction.to_user) + transaction.amount
+                net_transfer_map.set(transaction.to_user, balance)
+            
+            # Add change in `from_user`
+            if transaction.from_user not in net_transfer_map:
+                net_transfer_map.set(transaction.from_user, -transaction.amount)
+            if transaction.from_user in net_transfer_map:
+                balance = net_transfer_map.get(transaction.from_user) - transaction.amount
+                net_transfer_map.set(transaction.from_user, balance)
+
+        return net_transfer_map
+
+    def validate_block_transactions(self, net_transfer_map):
+        """
+        Validates that all users have the finances to make each transaction
+
+        Uses a map of: user -> net change
+        """
+
+        # Validate that each user has enough funds for their net activies in the block
+        for user, change in net_transfer_map.items():
+            if change < 0: # If change is negative, the user is net spending
+                if not self._bc_ledger.has_funds(user, abs(change)):
+                    return False
+        
+        return True
+    
+    
+    def validate_chain(self):
+        previous_hash = None
+        for block in self._blockchain:
+            if block.previous_block_hash != previous_hash:
+                return False
+            previous_hash = hash(block)
+
+
+    def add_block(self, block : Block):
+        net_transfers = self.get_net_transfers(block)
+
+        if not self.validate_block_transactions(net_transfers):
+            return False
+        
+        previous_block = self._blockchain[-1]
+
+        block.previous_block_hash = hash(previous_block)
+
+        for user, change in net_transfers.items():
+            self._bc_ledger.deposit(user, change)
+
+        self._blockchain.append(block)
+
+        return True
+            
