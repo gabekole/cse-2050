@@ -18,12 +18,12 @@ class TestCustomSet(unittest.TestCase):
         self.assertFalse("Hi" in myMap)
         self.assertEqual(len(myMap), 0)
 
-        myMap.add("HI", "WORLD")
+        myMap.set("HI", "WORLD")
         self.assertEqual(myMap.get("HI"), "WORLD")
         self.assertTrue("HI" in myMap)
         self.assertEqual(len(myMap), 1)
 
-        myMap.add("YO", 12)
+        myMap.set("YO", 12)
         self.assertEqual(myMap.get("YO"), 12)
         self.assertTrue("YO" in myMap)
         self.assertEqual(len(myMap), 2)
@@ -35,7 +35,7 @@ class TestCustomSet(unittest.TestCase):
         
         self.assertRaises(KeyError, myMap.remove, "YO")
 
-        myMap.add(1234, 59)
+        myMap.set(1234, 59)
         self.assertEqual(myMap.get(1234), 59)
         self.assertTrue(1234 in myMap)
         self.assertEqual(len(myMap), 2)
@@ -56,7 +56,7 @@ class TestCustomSet(unittest.TestCase):
             self.assertFalse(str(i) in bigMap)
             currentLen = len(bigMap)
 
-            bigMap.add(str(i), i+10)
+            bigMap.set(str(i), i+10)
 
             self.assertEqual(len(bigMap), currentLen+1)
             self.assertTrue(str(i) in bigMap)
