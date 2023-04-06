@@ -46,7 +46,6 @@ class Block():
         out = "#"*40 + "\n"
         for trans in self.transactions:
             out += (str(trans) + "\n")
-        out += "#"*40 + "\n"
 
         return out
 
@@ -194,4 +193,10 @@ class Blockchain():
 
         return True
 
-                
+
+    def __str__(self):
+        out = ""
+        for idx, block in enumerate(self._blockchain):
+            out += str(idx) + "\n"
+            out += str(block)
+        return out

@@ -142,6 +142,10 @@ class TestBlockchain(unittest.TestCase):
 
         self.assertFalse(bc.validate_chain()) # Successfully detect modification
 
+        print(bc)
+        print(bc._bc_ledger)
+
+
 
 if __name__ == "__main__":
     unittest.main()
