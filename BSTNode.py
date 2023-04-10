@@ -22,18 +22,42 @@ class BSTNode:
         yield self.key                                              # return this key
         if self.right is not None: yield from self.right.in_order() # recursively go right
 
-    # TODO: Uncomment this, so Python knows how to print out Nodes
     def __repr__(self):
-        #return f"BSTNode(key={self.key})"
-        pass
+        return f"BSTNode(key={self.key})"
   
 
-    # TODO: implement the 3 methods below. pre_order and post_order will be similar to in_order
-    def put(self, key): pass
+    def put(self, key):
+        """
+        Adds a key to the BSTSet
+        """
+        if key == self.key:
+            return
+        
+        if key < self.key:
+            if self.left is None:
+                self.left = BSTNode(key, None, None)
+            else:
+                self.left.put(key)
+        else:
+            if self.right is None:
+                self.right = BSTNode(key, None, None)
+            else:
+                self.right.put(key)
 
-    def pre_order(self): pass
+    def pre_order(self):
 
-    def post_order(self): pass
+        yield self.key
+
+        if self.left is not None: yield from self.left.in_order()   # recursively go left
+        if self.right is not None: yield from self.right.in_order() # recursively go right
+
+
+    def post_order(self):
+        if self.left is not None: yield from self.left.in_order()   # recursively go left
+        if self.right is not None: yield from self.right.in_order() # recursively go right
+
+        yield self.key
+
 
     
 
