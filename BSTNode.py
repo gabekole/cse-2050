@@ -48,13 +48,13 @@ class BSTNode:
 
         yield self.key
 
-        if self.left is not None: yield from self.left.in_order()   # recursively go left
-        if self.right is not None: yield from self.right.in_order() # recursively go right
+        if self.left is not None: yield from self.left.pre_order()   # recursively go left
+        if self.right is not None: yield from self.right.pre_order() # recursively go right
 
 
     def post_order(self):
-        if self.left is not None: yield from self.left.in_order()   # recursively go left
-        if self.right is not None: yield from self.right.in_order() # recursively go right
+        if self.left is not None: yield from self.left.post_order()   # recursively go left
+        if self.right is not None: yield from self.right.post_order() # recursively go right
 
         yield self.key
 

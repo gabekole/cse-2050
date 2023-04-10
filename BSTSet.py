@@ -17,7 +17,10 @@ class BSTSet:
 
 
     def put(self, key):
-        return self._head.put(key)
+        if self._head is None:
+            self._head = BSTNode(key, None, None)
+        else:
+            self._head.put(key)
 
     def pre_order(self):
         return self._head.pre_order()
