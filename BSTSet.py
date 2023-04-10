@@ -16,9 +16,11 @@ class BSTSet:
 
 
 
-    # TODO: How should these methods call the BSTNode methods?
-    def put(self, key): pass
+    def put(self, key):
+        return self._head.put(key)
 
-    def pre_order(self): pass
+    def pre_order(self):
+        return self._head.pre_order()
 
-    def post_order(self): pass  
+    def post_order(self):
+        return self._head.post_order()
