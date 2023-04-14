@@ -26,12 +26,42 @@ class BETNode:
         """Hash the whole tree (value + left and right subtrees)"""
         return hash((self.value, self.left, self.right))
     
-    # START HERE
-    def add_left(): pass
 
-    def add_right(): pass
+    def add_left(self, value):
+        self.left = BETNode(value)
 
-    def evaluate(): pass
+    def add_right(self, value):
+        self.left = BETNode(value)
+
+    def evaluate(self):
+
+        def internal_recursive(node)
+            if( node.value in CARD_VAL_DICT):
+                return node.value
+
+            if (node.value not in OPERATORS):
+                raise ValueError("Invalid node value")
+            
+            operator = node.value
+            
+            left_value = node.left.evaluate()
+            right_value = node.right.evaluate()
+
+            if operator == '+':
+                return left_value + right_value
+            elif operator == '-':
+                return left_value - right_value
+            elif operator == '*':
+                return left_value*right_value
+            elif operator == "/":
+                return left_value/right_value
+
+        internal_recursive(self)
+            
+
+
+        
+        
     
     def __repr__(): pass
 
