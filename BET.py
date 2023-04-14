@@ -147,6 +147,8 @@ def create_trees(cards):
     for character in cards:
         if character in BETNode.CARD_VAL_DICT:
             values.append(character)
+        else:
+            raise ValueError(f'Supplied card is not valid: {character}, Must be in BETNode.CARD_VAL_DICT')
 
     operator_permutations = list(itertools.product(BETNode.OPERATORS, repeat=3))
     value_permutations = list(itertools.permutations(values))
@@ -155,6 +157,8 @@ def create_trees(cards):
 
     tree_list = set()
 
+    # Iterates through all valid tree shapes and permutations of operators and values
+    # First creates a postfix string then converts it to a tree.
     for shape in valid_shapes:
         for pair in combined_product:
             operator_order = pair[0]
