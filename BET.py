@@ -30,45 +30,61 @@ class BETNode:
     
 
     def add_left(self, node):
+        """
+        Adds an item to the left of the current node (self)
+        uses copying.
+        Returns nothing.
+        """
         self.left = BETNode(node.value, left=node.left, right=node.right)
 
     def add_right(self, node):
+        """
+        Adds an item to the right of the current node (self)
+        uses copying.
+        Returns nothing.
+        """
         self.right = BETNode(node.value, left=node.left, right=node.right)
 
     def evaluate(self):
+        """
+        Recusively evaluates to value of the `self` nodes
 
-        def internal_recursive(node):
-            if( node.value in BETNode.CARD_VAL_DICT):
-                return BETNode.CARD_VAL_DICT[node.value]
+        Returns NaN, if there is a divide by zero
+        Returns Number, otherwise
+        """
 
-            if (node.value not in BETNode.OPERATORS):
-                # Not a number and not a operator
-                raise ValueError(f'Invalid node value {node.value}')
-            
-            operator = node.value
-            
-            left_value = internal_recursive(node.left)
-            right_value = internal_recursive(node.right)
+        if( self.value in BETNode.CARD_VAL_DICT): # base case
+            return BETNode.CARD_VAL_DICT[self.value]
 
+        if (self.value not in BETNode.OPERATORS): # This necessitates it is not a Card nor Operator which indicates an error.
+            # Not a number and not a operator
+            raise ValueError(f'Invalid node value {self.value}')
+        
+        operator = self.value
+        
+        left_value = self.left.evaluate()
+        right_value = self.right.evaluate()
 
-            if operator == '+':
-                return left_value + right_value
-            if operator == '-':
-                return left_value - right_value
-            if operator == '*':
-                return left_value*right_value
-            if operator == "/":
-                if right_value == 0:
-                    # all operations with NaN result in Nan so this will bubble up
-                    return float('nan') 
-                return left_value/right_value
-
-
-        return internal_recursive(self)
+        # Apply the operator to the value of the left and right sub trees.
+        if operator == '+': 
+            return left_value + right_value
+        if operator == '-':
+            return left_value - right_value
+        if operator == '*':
+            return left_value*right_value
+        if operator == "/":
+            if right_value == 0:
+                # all operations with NaN result in NaN so this will bubble up
+                return float('nan') 
+            return left_value/right_value
             
 
 
     def __repr__(self):
+        """"
+        Returns a string representation of the tree as a mathmatical expression
+        Output uses infix notation
+        """
         if( self.value in BETNode.CARD_VAL_DICT):
             return self.value
 
@@ -85,10 +101,13 @@ class BETNode:
 
 
 def postfix_to_tree(tree_post_fix_string):
-    stack = []
+    """"
+    Converts a postfix expression string
+    into a tree
+    """
+
+    stack = [] # Post fix is easily evaluated with a stack.
     for letter in tree_post_fix_string:
-        if letter in BETNode.CARD_VAL_DICT:
-            stack.append(BETNode(letter))
         if letter in BETNode.OPERATORS:
             value_two = stack.pop()
             value_one = stack.pop()
@@ -99,6 +118,8 @@ def postfix_to_tree(tree_post_fix_string):
 
             node = BETNode(letter, left, right)
             stack.append(node)
+        else:
+            stack.append(BETNode(letter))
 
     return stack[0]
 
