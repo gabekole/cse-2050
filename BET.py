@@ -37,9 +37,10 @@ class BETNode:
 
         def internal_recursive(node)
             if( node.value in CARD_VAL_DICT):
-                return node.value
+                return CARD_VAL_DICT[node.value]
 
             if (node.value not in OPERATORS):
+                # Not a number and not a operator
                 raise ValueError("Invalid node value")
             
             operator = node.value
