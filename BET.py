@@ -184,6 +184,10 @@ def create_trees(cards):
 
 
 def find_solutions(hand):
+    """
+    Given a four card hand,
+    finds the number of ways a BET tree can be arranged to evaluate to 24.
+    """
     if len(hand) != 4:
         raise ValueError(f'Hand must be of length 4, it is of length {len(hand)}')
     for card in hand:

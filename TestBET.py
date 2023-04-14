@@ -77,11 +77,18 @@ class TestBETNode(unittest.TestCase):
 
 class TestCreateTrees(unittest.TestCase):
     def test_hand1(self):
+        # Tests that the number of trees generated is correct
+        # 4! * 4^3 * 5 = 7680
+        # Cards * Operators * Shapes 
         trees = create_trees("A234")
 
         self.assertEqual(len(trees), 7680)
         
     def test_hand2(self):
+        # Should be half of the value in test_hand1
+        # Because for each tree, a unique set with have a corresponding one where
+        # One card is switched with the other
+        # By eliminated one swap the number of permutations decreases by a factor of 2.
         trees = create_trees("2234")
 
         self.assertEqual(len(trees), 7680 // 2)
@@ -89,9 +96,15 @@ class TestCreateTrees(unittest.TestCase):
 
 class TestFindSolutions(unittest.TestCase):
     def test0sols(self):
+        # Given in pdf
+        # The cards A, 2, 3, Q have 33 ways to sum to 24
         self.assertEqual(find_solutions('A23Q'), 33)
 
     def test_A23Q(self):
+        # Since all cards have value 1, it is difficult
+        # To achieve a high number
+        # the max is (1+1)*(1+1) = 4 
+        # So this cannot attain 24.
         self.assertEqual(find_solutions('AAAA'), 0)
         
 unittest.main()
