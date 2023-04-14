@@ -124,8 +124,15 @@ def postfix_to_tree(tree_post_fix_string):
     return stack[0]
 
 def create_trees(cards):
-    MAX_TREES = 7680
+    """
+    Given a string of 4 cards 
+    Returns all possible trees with 
+    those 4 cards.
 
+    CAUTION: WILL NOT WORK IF CARD NUMBER IS MORE OR LESS THAN 4
+
+    Returns set of BETNode
+    """
 
     valid_shapes = [
         'CCXCCXX',
