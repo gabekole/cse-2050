@@ -77,8 +77,9 @@ class TestBETNode(unittest.TestCase):
 
 class TestCreateTrees(unittest.TestCase):
     def test_hand1(self):
-        create_trees("A2*3-4+")
-        print(repr(root))
+        trees = create_trees("A234")
+
+        self.assertEqual(len(trees), 7680)
         
     def test_hand2(self): pass
         

@@ -90,12 +90,8 @@ def postfix_to_tree(tree_post_fix_string):
         if letter in BETNode.CARD_VAL_DICT:
             stack.append(BETNode(letter))
         if letter in BETNode.OPERATORS:
-            try:
-                value_two = stack.pop()
-                value_one = stack.pop()
-            except:
-                print(letter)
-                print(tree_post_fix_string)
+            value_two = stack.pop()
+            value_one = stack.pop()
 
             left = value_one
             right = value_two
@@ -118,27 +114,18 @@ def create_trees(cards):
         'CCCCXXX',
     ]
 
-    operators = []
     values = []
 
     for character in cards:
-        if character in BETNode.OPERATORS:
-            operators.append(character)
         if character in BETNode.CARD_VAL_DICT:
             values.append(character)
 
-    # print(len(operators))
-    # print(len(values))
-
-    operator_permutations = list(itertools.permutations(operators))
+    operator_permutations = list(itertools.product(BETNode.OPERATORS, repeat=3))
     value_permutations = list(itertools.permutations(values))
-
-    # print(len(operator_permutations))
-    # print(len(value_permutations))
 
     combined_product = list(itertools.product(operator_permutations, value_permutations))
 
-    tree_list = []
+    tree_list = set()
 
     for shape in valid_shapes:
         for pair in combined_product:
@@ -157,10 +144,9 @@ def create_trees(cards):
                     tree_post_fix_string += (operator_order[operator_index])
                     operator_index += 1
 
-            tree_list.append(postfix_to_tree(tree_post_fix_string))
+            tree_list.add(postfix_to_tree(tree_post_fix_string))
                         
 
-    print(len(tree_list))
     return tree_list
 
 
