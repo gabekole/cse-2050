@@ -81,8 +81,11 @@ class TestCreateTrees(unittest.TestCase):
 
         self.assertEqual(len(trees), 7680)
         
-    def test_hand2(self): pass
-        
+    def test_hand2(self):
+        trees = create_trees("2234")
+
+        self.assertEqual(len(trees), 7680 // 2)
+            
 
 class TestFindSolutions(unittest.TestCase):
     def test0sols(self): pass
