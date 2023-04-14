@@ -1,3 +1,5 @@
+import itertools
+
 class BETNode:
     """Node for binary expression tree"""
 
@@ -82,8 +84,85 @@ class BETNode:
         return '('+left_value+operator+right_value+')'
 
 
+def postfix_to_tree(tree_post_fix_string):
+    stack = []
+    for letter in tree_post_fix_string:
+        if letter in BETNode.CARD_VAL_DICT:
+            stack.append(BETNode(letter))
+        if letter in BETNode.OPERATORS:
+            try:
+                value_two = stack.pop()
+                value_one = stack.pop()
+            except:
+                print(letter)
+                print(tree_post_fix_string)
+
+            left = value_one
+            right = value_two
 
 
-def create_trees(): pass
+            node = BETNode(letter, left, right)
+            stack.append(node)
+
+    return stack[0]
+
+def create_trees(cards):
+    MAX_TREES = 7680
+
+
+    valid_shapes = [
+        'CCXCCXX',
+        'CCXCXCX',
+        'CCCXXCX',
+        'CCCXCXX',
+        'CCCCXXX',
+    ]
+
+    operators = []
+    values = []
+
+    for character in cards:
+        if character in BETNode.OPERATORS:
+            operators.append(character)
+        if character in BETNode.CARD_VAL_DICT:
+            values.append(character)
+
+    # print(len(operators))
+    # print(len(values))
+
+    operator_permutations = list(itertools.permutations(operators))
+    value_permutations = list(itertools.permutations(values))
+
+    # print(len(operator_permutations))
+    # print(len(value_permutations))
+
+    combined_product = list(itertools.product(operator_permutations, value_permutations))
+
+    tree_list = []
+
+    for shape in valid_shapes:
+        for pair in combined_product:
+            operator_order = pair[0]
+            value_order = pair[1]
+        
+            operator_index = 0
+            value_index =0
+
+            tree_post_fix_string = ""
+            for character in shape:
+                if character == 'C':
+                    tree_post_fix_string += (value_order[value_index])
+                    value_index += 1
+                if character == 'X':
+                    tree_post_fix_string += (operator_order[operator_index])
+                    operator_index += 1
+
+            tree_list.append(postfix_to_tree(tree_post_fix_string))
+                        
+
+    print(len(tree_list))
+    return tree_list
+
+
 
 def find_solutions(): pass

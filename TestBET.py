@@ -70,11 +70,15 @@ class TestBETNode(unittest.TestCase):
         root.right.right.add_left(BETNode('2'))
         expected_str = '((5+Q)*(3/(2-2)))'
         self.assertEqual(repr(root), expected_str)
+
+        # Divide by zero results in NaN
         self.assertTrue(math.isnan(root.evaluate()))
 
 
 class TestCreateTrees(unittest.TestCase):
-    def test_hand1(self): pass
+    def test_hand1(self):
+        create_trees("A2*3-4+")
+        print(repr(root))
         
     def test_hand2(self): pass
         
