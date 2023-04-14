@@ -36,7 +36,6 @@ class BETNode:
     def evaluate(self):
 
         def internal_recursive(node):
-            print(node.value)
             if( node.value in BETNode.CARD_VAL_DICT):
                 return BETNode.CARD_VAL_DICT[node.value]
 
@@ -57,6 +56,9 @@ class BETNode:
             if operator == '*':
                 return left_value*right_value
             if operator == "/":
+                if right_value == 0:
+                    # all operations with NaN result in Nan so this will bubble up
+                    return float('nan') 
                 return left_value/right_value
 
 
@@ -64,10 +66,21 @@ class BETNode:
             
 
 
+    def __repr__(self):
+        if( self.value in BETNode.CARD_VAL_DICT):
+            return self.value
+
+        if (self.value not in BETNode.OPERATORS):
+            # Not a number and not a operator
+            raise ValueError(f'Invalid node value {self.value}')
         
-        
+        operator = self.value
     
-    def __repr__(): pass
+        left_value = repr(self.left)
+        right_value = repr(self.right)
+
+        return '('+left_value+operator+right_value+')'
+
 
 
 
