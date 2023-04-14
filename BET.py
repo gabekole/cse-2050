@@ -27,37 +27,40 @@ class BETNode:
         return hash((self.value, self.left, self.right))
     
 
-    def add_left(self, value):
-        self.left = BETNode(value)
+    def add_left(self, node):
+        self.left = BETNode(node.value, left=node.left, right=node.right)
 
-    def add_right(self, value):
-        self.left = BETNode(value)
+    def add_right(self, node):
+        self.right = BETNode(node.value, left=node.left, right=node.right)
 
     def evaluate(self):
 
-        def internal_recursive(node)
-            if( node.value in CARD_VAL_DICT):
-                return CARD_VAL_DICT[node.value]
+        def internal_recursive(node):
+            print(node.value)
+            if( node.value in BETNode.CARD_VAL_DICT):
+                return BETNode.CARD_VAL_DICT[node.value]
 
-            if (node.value not in OPERATORS):
+            if (node.value not in BETNode.OPERATORS):
                 # Not a number and not a operator
-                raise ValueError("Invalid node value")
+                raise ValueError(f'Invalid node value {node.value}')
             
             operator = node.value
             
-            left_value = node.left.evaluate()
-            right_value = node.right.evaluate()
+            left_value = internal_recursive(node.left)
+            right_value = internal_recursive(node.right)
+
 
             if operator == '+':
                 return left_value + right_value
-            elif operator == '-':
+            if operator == '-':
                 return left_value - right_value
-            elif operator == '*':
+            if operator == '*':
                 return left_value*right_value
-            elif operator == "/":
+            if operator == "/":
                 return left_value/right_value
 
-        internal_recursive(self)
+
+        return internal_recursive(self)
             
 
 
@@ -65,6 +68,7 @@ class BETNode:
         
     
     def __repr__(): pass
+
 
 
 def create_trees(): pass

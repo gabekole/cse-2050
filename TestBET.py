@@ -16,13 +16,14 @@ class TestBETNode(unittest.TestCase):
         """
         root = BETNode('*')
         root.add_left(BETNode('A'))
-        root.add_right(BETNode('-'))
-        root.right.add_left(BETNode('2'))
-        root.right.add_right(BETNode('+'))
-        root.right.right.add_left(BETNode('3'))
-        root.right.right.add_right(BETNode('4'))
-        expected_str = '(A*(2-(3+4)))'
-        self.assertEqual(repr(root), expected_str)
+        root.add_right(BETNode('2'))
+        # root.right.add_left(BETNode('2'))
+        # root.right.add_right(BETNode('+'))
+        # root.right.right.add_left(BETNode('3'))
+        # root.right.right.add_right(BETNode('4'))
+        # expected_str = '(A*(2-(3+4)))'
+        # self.assertEqual(repr(root), expected_str)
+        self.assertEqual(root.evaluate(), -5)
 
     # TODO: Add test cases below. Repr is provided for you.
     def test_evaluate_tree1(self): pass
