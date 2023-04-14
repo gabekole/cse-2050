@@ -88,8 +88,10 @@ class TestCreateTrees(unittest.TestCase):
             
 
 class TestFindSolutions(unittest.TestCase):
-    def test0sols(self): pass
+    def test0sols(self):
+        self.assertEqual(find_solutions('A23Q'), 33)
 
-    def test_A23Q(self): pass
+    def test_A23Q(self):
+        self.assertEqual(find_solutions('AAAA'), 0)
         
 unittest.main()

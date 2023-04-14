@@ -151,4 +151,19 @@ def create_trees(cards):
 
 
 
-def find_solutions(): pass
+def find_solutions(hand):
+    if len(hand) != 4:
+        raise ValueError(f'Hand must be of length 4, it is of length {len(hand)}')
+    for card in hand:
+        if card not in BETNode.CARD_VAL_DICT:
+            raise ValueError(f'Invalid card in hand {card}')
+
+    trees = create_trees(hand)
+    count = 0
+
+    for tree in trees:
+        value = tree.evaluate()
+        if value == 24:
+            count += 1
+
+    return count
