@@ -108,8 +108,8 @@ class TestPQ_OL(unittest.TestCase):
         for i in range(n):
             peek = pq.find_min()
             new = pq.remove_min()
-            assert new == peek
-            assert old.priority <= new.priority # make sure we are removing in order
+            self.assertEqual(new, peek)
+            self.assertLessEqual(old.priority, new.priority) # make sure we are removing in order
             old = new
 
 unittest.main()

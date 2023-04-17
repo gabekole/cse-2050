@@ -29,12 +29,12 @@ class PQ_UL:
     def find_min(self):
         self._L.sort(key=lambda x: x.priority, reverse=True)
 
-        return self._L[-1].item
+        return self._L[-1]
     
     def remove_min(self):
         self._L.sort(key=lambda x: x.priority, reverse=True)
 
-        item = self._L[-1].item
+        item = self._L[-1]
 
         del self._L[-1]
 
@@ -51,7 +51,7 @@ class PQ_OL:
         new_entry = Entry(item=item, priority=priority)
         
         add_index = 0
-        for idx, entry in self._L:
+        for idx, entry in enumerate(self._L):
             if entry.priority < priority:
                 add_index = idx
                 break
@@ -59,10 +59,10 @@ class PQ_OL:
         self._L.insert(add_index, new_entry)
 
     def find_min(self):
-        return self._L[-1].item
+        return self._L[-1]
     
     def remove_min(self):
-        item = self._L[-1].item
+        item = self._L[-1]
 
         del self._L[-1]
 
