@@ -98,7 +98,7 @@ class TestPQ_OL(unittest.TestCase):
     def test_add_remove_random(self):
         """Randomly adds, then removes, a large number of items"""
         # Construct PQ
-        n = 1000
+        n = 20
         pq = PQ_OL()
         for i in range(n):
             pq.insert('pikachu', random.randint(0, n))

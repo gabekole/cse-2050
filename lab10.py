@@ -40,6 +40,8 @@ class PQ_UL:
 
         return item
     
+import bisect 
+
 class PQ_OL:
     def __init__(self):
         self._L = []
@@ -50,13 +52,11 @@ class PQ_OL:
     def insert(self, item, priority):
         new_entry = Entry(item=item, priority=priority)
         
-        add_index = 0
-        for idx, entry in enumerate(self._L):
-            if entry.priority < priority:
-                add_index = idx
-                break
+        bisect.insort(self._L, new_entry, key=lambda x: -x.priority)
 
-        self._L.insert(add_index, new_entry)
+
+    def __str__(self):
+        return str(self._L)
 
     def find_min(self):
         return self._L[-1]
