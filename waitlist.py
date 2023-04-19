@@ -1,4 +1,6 @@
 import random
+import bisect
+
 class Time:
     """A class that represents time in the format HH:MM"""
     def __init__(self, hour, minute):
@@ -45,13 +47,24 @@ class Waitlist:
         self._entries = []
 
     def add_customer(self, item, priority):
-        #TODO add customers to the waiting list.
-        pass
+        new_entry = Entry(item, priority)
+
+        add_index = 0
+        for index, entry in self._entries:
+            if entry.time < new_entry.time:
+                add_index = index
+                break
+
+        self._entries.insert(add_index, new_entry)
 
     def peek(self):
-        #TODO peek and see the first customer in the waitlist (i.e., the customer with the highest priority).
+        #peek and see the first customer in the waitlist (i.e., the customer with the highest priority).
         # Return a tuple of the extracted item (customer, time). Return None if the heap is empty
-        pass
+
+        if len(self._entries) > 0:
+            return (self._entries[-1].name, self._entries[-1].time)
+        else:
+            return None
 
     def seat_customer(self):
         #TODO The program should extract the customer with the highest priority 
