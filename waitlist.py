@@ -52,13 +52,16 @@ class Waitlist:
         if not isinstance(priority, Time):
             raise ValueError("Priority must be of class `Time`")
 
-        add_index = 0
-        for index, entry in self._entries:
-            if entry.time < new_entry.time:
-                add_index = index
-                break
-
-        self._entries.insert(add_index, new_entry)
+        left = 0
+        right = len(self._entries)
+        
+        while left < right:
+            mid = (left+right)//2
+            if self._entries[mid] < new_entry:
+                right = mid
+            else:
+                left = mid+1
+        self._entries.insert(left, new_entry)
 
     def peek(self):
         #peek and see the first customer in the waitlist (i.e., the customer with the highest priority).
@@ -88,7 +91,7 @@ class Waitlist:
         #Maintain the heap property
 
         for entry in reversed(self._entries):
-            print(entry)
+            print(f'The next customer on the waitlist is: {entry.name}, time: {entry.time}')
         
     def change_reservation(self, name, new_priority):
         #Change the reservation time (priority) for the customer with the given name
@@ -105,8 +108,4 @@ class Waitlist:
 
         if entry_index is None:
             raise ValueError("Person not in waitlist")
-        self._entries[entry_index].priority = new_priority
-
-
-
-
+        self._entries[entry_index].time = new_priority
