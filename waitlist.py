@@ -46,12 +46,18 @@ class Waitlist:
     def __init__(self):
         self._entries = []
 
-    def add_customer(self, item, priority):
-        new_entry = Entry(item, priority)
+    def add_customer(self, name, time):
+        """
+        Add a customer to the waitlist with provided name, time
 
-        if not isinstance(priority, Time):
+        Provided time must be of type `Time`
+        """
+        new_entry = Entry(name, time)
+
+        if not isinstance(time, Time):
             raise ValueError("Priority must be of class `Time`")
 
+        # Performs a binary insertion into the list in descending order
         left = 0
         right = len(self._entries)
         
