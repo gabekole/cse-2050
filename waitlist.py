@@ -49,6 +49,9 @@ class Waitlist:
     def add_customer(self, item, priority):
         new_entry = Entry(item, priority)
 
+        if not isinstance(priority, Time):
+            raise ValueError("Priority must be of class `Time`")
+
         add_index = 0
         for index, entry in self._entries:
             if entry.time < new_entry.time:
@@ -67,22 +70,43 @@ class Waitlist:
             return None
 
     def seat_customer(self):
-        #TODO The program should extract the customer with the highest priority 
+        # The program should extract the customer with the highest priority
         # (i.e., the earliest reservation time) from the priority queue.
         # Return a tuple of the extracted item (customer, time)
-        pass
+        
+        customer = None
 
+        if len(self._entries) > 0:
+            customer = (self._entries[-1].name, self._entries[-1].time)
+            self._entries.pop()
+
+        return customer
+        
 
     def print_reservation_list(self):
-        #TODO Prints all customers in order of their priority (reservation time).
+        #Prints all customers in order of their priority (reservation time).
         #Maintain the heap property
-        pass
-    
-    def change_reservation(self, name, new_priority):
-        #TODO Change the reservation time (priority) for the customer with the given name
-        pass
 
-    #Add other methods you may need
+        for entry in reversed(self._entries):
+            print(entry)
+        
+    def change_reservation(self, name, new_priority):
+        #Change the reservation time (priority) for the customer with the given name
+        
+        if not isinstance(new_priority, Time):
+            raise ValueError("Priority must be of type `Time`")
+        
+        entry_index = None
+
+        for index, entry in enumerate(self._entries):
+            if entry.name == name:
+                entry_index = index
+                break
+
+        if entry_index is None:
+            raise ValueError("Person not in waitlist")
+        self._entries[entry_index].priority = new_priority
+
 
 
 
