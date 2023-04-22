@@ -85,6 +85,11 @@ class Graph:
         """
         Removes an edge from the graph and raises a KeyError
         if it does not exist
+
+        If weight is None, will attempt to remove the edge
+
+        If weight is not None, will check that the edge has the provided weight and 
+        will through a KeyError if not 
         """
 
         if u not in self.adjacency_map:
