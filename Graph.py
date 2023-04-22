@@ -120,4 +120,7 @@ class Graph:
         return self.adjacency_map[v]
 
     def __len__(self):
+        """
+        Returns length as the number of vertices in the graph
+        """
         return len(self.adjacency_map)
