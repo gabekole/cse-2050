@@ -81,7 +81,7 @@ class Graph:
         self.adjacency_map[v][u] = wt
 
 
-    def remove_edge(self, u, v, wt):
+    def remove_edge(self, u, v, wt=None):
         """
         Removes an edge from the graph and raises a KeyError
         if it does not exist
@@ -97,6 +97,12 @@ class Graph:
             raise KeyError(f"Edge not in graph: {v}, {u}")
         if u not in self.adjacency_map[u]:
             raise KeyError(f"Edge not in graph: {u}, {v}")
+
+        if wt is not None and self.adjacency_map[u][v] != wt:
+            raise KeyError(f"Edge does not match provided weight: {wt}")
+
+        if wt is not None and self.adjacency_map[v][u] != wt:
+            raise KeyError(f"Edge does not match provided weight: {wt}")
 
         del self.adjacency_map[u][v]
         del self.adjacency_map[v][u]
