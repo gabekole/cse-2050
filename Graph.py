@@ -108,3 +108,6 @@ class Graph:
         """
 
         return self.adjacency_map[v]
+
+    def __len__(self):
+        return len(self.adjacency_map)
