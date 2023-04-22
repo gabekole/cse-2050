@@ -64,11 +64,47 @@ class Graph:
 
     def add_edge(self, u, v, wt):
         """
-        Adds an edge to the graph
+        Adds an edge to the graph with the provided weight
+        if the same edge pairing already exhists, the weight will be overrided
+        with the new weight
+
+        Must be added twice since adjacency map is bidirectional
         """
 
+        if u not in self.adjacency_map:
+            self.adjacency_map[u] = dict()
+
+        if v not in self.adjacency_map:
+            self.adjacency_map[v] = dict()
+
+        self.adjacency_map[u][v] = wt
+        self.adjacency_map[v][u] = wt
+
+
     def remove_edge(self, u, v, wt):
-        """ADD DOCSTRING"""
+        """
+        Removes an edge from the graph and raises a KeyError
+        if it does not exist
+        """
+
+        if u not in self.adjacency_map:
+            raise KeyError(f"Vertex not in graph: {u}")
+
+        if v not in self.adjacency_map:
+            raise KeyError(f"Vertex not in graph: {v}")
+
+        if u not in self.adjacency_map[v]:
+            raise KeyError(f"Edge not in graph: {v}, {u}")
+        if u not in self.adjacency_map[u]:
+            raise KeyError(f"Edge not in graph: {u}, {v}")
+
+        del self.adjacency_map[u][v]
+        del self.adjacency_map[v][u]
+
 
     def nbrs(self, v):
-        """ADD DOCSTRING"""
+        """
+        Returns the neighbors of a given vertex
+        """
+
+        return self.adjacency_map[v]
