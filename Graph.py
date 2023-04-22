@@ -89,13 +89,12 @@ class Graph:
 
         if u not in self.adjacency_map:
             raise KeyError(f"Vertex not in graph: {u}")
-
         if v not in self.adjacency_map:
             raise KeyError(f"Vertex not in graph: {v}")
 
         if u not in self.adjacency_map[v]:
             raise KeyError(f"Edge not in graph: {v}, {u}")
-        if u not in self.adjacency_map[u]:
+        if v not in self.adjacency_map[u]:
             raise KeyError(f"Edge not in graph: {u}, {v}")
 
         if wt is not None and self.adjacency_map[u][v] != wt:

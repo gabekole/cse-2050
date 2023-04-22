@@ -77,7 +77,9 @@ class test_Graph(unittest.TestCase):
         self.assertEqual(self.g.nbrs('A'), expected_neighbors_2)
 
     def test_edge_removal(self):
-        self.g.remove_edge()
+
+        self.g.remove_edge('B', 'A', 200)
+        
 
 
     
