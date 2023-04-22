@@ -78,8 +78,20 @@ class test_Graph(unittest.TestCase):
 
     def test_edge_removal(self):
 
-        self.g.remove_edge('B', 'A', 200)
-        
+        self.assertRaises(KeyError, lambda : self.g.remove_edge('B', 'A', 100))
+        self.assertRaises(KeyError, lambda : self.g.remove_edge('E', 'A', 100))
+        self.assertRaises(KeyError, lambda : self.g.remove_edge('N', 'A'))
+
+        self.g.remove_edge('B', 'A')
+
+        expected_neighbors_1 = dict()
+        expected_neighbors_1['D'] = 200
+        self.assertEqual(self.g.nbrs('A'), expected_neighbors_1)
+
+        self.assertRaises(KeyError, lambda : self.g.remove_edge('A', 'B'))
+
+        self.g.remove_edge('D', 'A')
+        self.assertEqual(self.g.nbrs('A'), dict())
 
 
     
