@@ -98,7 +98,23 @@ class test_Graph(unittest.TestCase):
 class test_GraphTraversal(unittest.TestCase):
     # Create a graph `self.g` that you can use in your other unittests. Include ASCII art.
     def setUp(self):
-        """ADD DOCSTRING"""
+        """
+        
+              200         40
+        A ---------- B -------- C
+        |       ____/           |
+    200 |   __/ 140             |
+        | /                     |
+        D ----------------------
+                          150
+        
+        
+        """
+
+        vertices = {'A', 'B', 'C', 'D'}
+        edges = ('A', 'B', 200), ('B', 'C', 40), ('C', 'D', 150), ('A', 'D', 200), ('B', 'D', 140)
+
+        self.g = Graph(vertices, edges)
 
     # TODO: Which alg do you use here, and why?
     # Alg:
