@@ -116,11 +116,19 @@ class test_GraphTraversal(unittest.TestCase):
 
         self.g = Graph(vertices, edges)
 
-    # TODO: Which alg do you use here, and why?
-    # Alg:
-    # Why:
+    # Alg: Breadth first search
+    # Why: Since we don't care about the weighting on each edge, and we want the fastest connection, 
+    #    Breath first search works well in this case.
     def test_fewest_flights(self):
         """ADD DOCSTRING"""
+        shortest_path_tree_1, distance_tree_1 = self.g.fewest_connections('C', 'D')
+        self.assertEqual({'C': None, 'D': 'C'}, shortest_path_tree_1)
+
+        shortest_path_tree_2, distance_tree_2 = self.g.fewest_connections('C', 'A')
+        self.assertEqual(3, len(shortest_path_tree_2))
+
+        shortest_path_tree_3, distance_tree_3 = self.g.fewest_connections('B', 'D')
+        self.assertEqual(2, len(shortest_path_tree_3))
  
 
     # TODO: Which alg do you use here, and why?

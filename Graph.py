@@ -124,3 +124,51 @@ class Graph:
         Returns length as the number of vertices in the graph
         """
         return len(self.adjacency_map)
+    
+    def fewest_connections(self, origin_node, destination_node):
+        """
+        Attempts to find the path with the fewest connections to the provided `destination_node` from 
+        `origin_node`
+
+        Finds how to get from `origin_node` to `destination_node` in the fewest number of graph "jumps"
+        Uses breadth first search
+
+        Returns: A dictionary-tree showing traversal order
+        """
+
+        path_queue = []
+        path_queue.append([origin_node]) # Initialze the queue with the first path
+
+        
+        while path_queue: # Looop while the queue is not empty
+            path = path_queue.pop(0) # Get the first path from the queue
+            last_node = path[-1] # Get the last node in the path (leaf)
+            
+            if last_node == destination_node: # Path ends at the destination
+
+                dictionary_path = dict() # Initialize a dictionary path to generate from the list path
+                first_node = path[0] # Special case of first node must be accounted for
+
+                dictionary_path[first_node] = None
+
+                for previous, current in zip(path, path[1:]):
+                    dictionary_path[current] = previous
+
+
+                dictionary_distance = dict()
+                dictionary_distance[first_node] = 0
+
+                for previous, current in zip(path, path[1:]):
+                    dictionary_distance[current] = self.adjacency_map[previous][current] + dictionary_distance[previous]
+                    
+
+                return dictionary_path, dictionary_distance
+            
+
+            for adjacent in self.nbrs(last_node): # Create a new path for each neighbor and add to queue
+                new_path = list(path)
+                new_path.append(adjacent)
+                path_queue.append(new_path)
+
+        raise ValueError(f'No path from {origin_node} to {destination_node}')
+
