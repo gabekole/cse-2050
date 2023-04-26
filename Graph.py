@@ -125,50 +125,31 @@ class Graph:
         """
         return len(self.adjacency_map)
     
-    def fewest_connections(self, origin_node, destination_node):
+    def fewest_connections(self, origin_node):
         """
-        Attempts to find the path with the fewest connections to the provided `destination_node` from 
-        `origin_node`
+        Generates a dictionary tree based on the fewest number of jumps in the tree
 
-        Finds how to get from `origin_node` to `destination_node` in the fewest number of graph "jumps"
+        Finds how to get from `origin_node` to any other node in the fewest number of graph "jumps"
         Uses breadth first search
 
-        Returns: A dictionary-tree showing traversal order
+        Returns: A dictionary-tree showing traversal order and a dictionary of vertex: cost.
         """
+        traversal_tree = dict() # empty dict for child:parent
+        node_queue = [(None, origin_node)] # (parent, child) tuples we want to explore
+        cost_tree = {}
 
-        path_queue = []
-        path_queue.append([origin_node]) # Initialze the queue with the first path
+        while node_queue: # Loop while the queue is not empty
+            parent, child = node_queue.pop(0) # Get first in node
+            if child in traversal_tree: # Skip if already visited
+                continue
+            traversal_tree[child] = parent # store parent : child
+            if parent is None:
+                cost_tree[child] = 0
+            else:
+                cost_tree[child] = self.adjacency_map[parent][child] + cost_tree[parent]
 
-        
-        while path_queue: # Looop while the queue is not empty
-            path = path_queue.pop(0) # Get the first path from the queue
-            last_node = path[-1] # Get the last node in the path (leaf)
+            for node in self.nbrs(child):
+                node_queue.append((child, node)) # add all of b's neighbors to node_queue
             
-            if last_node == destination_node: # Path ends at the destination
-
-                dictionary_path = dict() # Initialize a dictionary path to generate from the list path
-                first_node = path[0] # Special case of first node must be accounted for
-
-                dictionary_path[first_node] = None
-
-                for previous, current in zip(path, path[1:]):
-                    dictionary_path[current] = previous
-
-
-                dictionary_distance = dict()
-                dictionary_distance[first_node] = 0
-
-                for previous, current in zip(path, path[1:]):
-                    dictionary_distance[current] = self.adjacency_map[previous][current] + dictionary_distance[previous]
-                    
-
-                return dictionary_path, dictionary_distance
-            
-
-            for adjacent in self.nbrs(last_node): # Create a new path for each neighbor and add to queue
-                new_path = list(path)
-                new_path.append(adjacent)
-                path_queue.append(new_path)
-
-        raise ValueError(f'No path from {origin_node} to {destination_node}')
+        return traversal_tree, cost_tree
 

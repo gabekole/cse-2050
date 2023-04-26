@@ -121,15 +121,13 @@ class test_GraphTraversal(unittest.TestCase):
     #    Breath first search works well in this case.
     def test_fewest_flights(self):
         """ADD DOCSTRING"""
-        shortest_path_tree_1, distance_tree_1 = self.g.fewest_connections('C', 'D')
-        self.assertEqual({'C': None, 'D': 'C'}, shortest_path_tree_1)
+        shortest_path_tree_1, distance_tree_1 = self.g.fewest_connections('C')
+        self.assertEqual(shortest_path_tree_1, {'C': None, 'B': 'C', 'D': 'C', 'A': 'B'})
+        self.assertEqual(distance_tree_1, {'C': 0, 'B': 40, 'D': 150, 'A': 240})
 
-        shortest_path_tree_2, distance_tree_2 = self.g.fewest_connections('C', 'A')
-        self.assertEqual(3, len(shortest_path_tree_2))
-
-        shortest_path_tree_3, distance_tree_3 = self.g.fewest_connections('B', 'D')
-        self.assertEqual(2, len(shortest_path_tree_3))
- 
+        shortest_path_tree_2, distance_tree_2 = self.g.fewest_connections('D')
+        self.assertEqual(shortest_path_tree_2, {'D': None, 'C': 'D', 'A': 'D', 'B': 'D'} )
+        self.assertEqual(distance_tree_2, {'D': 0, 'C': 150, 'A': 200, 'B': 140})
 
     # TODO: Which alg do you use here, and why?
     # Alg:
