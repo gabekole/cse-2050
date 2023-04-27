@@ -120,25 +120,28 @@ class test_GraphTraversal(unittest.TestCase):
     # Why: Since we don't care about the weighting on each edge, and we want the fastest connection, 
     #    Breath first search works well in this case.
     def test_fewest_flights(self):
-        """ADD DOCSTRING"""
-        shortest_path_tree_1, distance_tree_1 = self.g.fewest_connections('C')
-        self.assertEqual(shortest_path_tree_1, {'C': None, 'B': 'C', 'D': 'C', 'A': 'B'})
+        """
+        Tests that the `fewest_connections` method works properly in the graph class
+        """
+        fewest_connections_tree_1, distance_tree_1 = self.g.fewest_connections('C')
+        self.assertEqual(fewest_connections_tree_1, {'C': None, 'B': 'C', 'D': 'C', 'A': 'B'})
         self.assertEqual(distance_tree_1, {'C': 0, 'B': 40, 'D': 150, 'A': 240})
 
-        shortest_path_tree_2, distance_tree_2 = self.g.fewest_connections('D')
-        self.assertEqual(shortest_path_tree_2, {'D': None, 'C': 'D', 'A': 'D', 'B': 'D'} )
+        fewest_connections_tree_2, distance_tree_2 = self.g.fewest_connections('D')
+        self.assertEqual(fewest_connections_tree_2, {'D': None, 'C': 'D', 'A': 'D', 'B': 'D'} )
         self.assertEqual(distance_tree_2, {'D': 0, 'C': 150, 'A': 200, 'B': 140})
 
     
     # Alg: Dijkstra's algorithm
     # Why: We want the shortest paths in a weighted graph, this is what dijkstra is for
     def test_shortest_path(self):
-        """ADD DOCSTRING"""
+        """
+        Tests that the shortest path method works properly
+        """
         traversal_map_1, distance_tree_1 = self.g.shortest_path('C')
 
         self.assertEqual(traversal_map_1, {'C': None, 'B': 'C', 'D': 'C', 'A': 'B'})
         self.assertEqual(distance_tree_1, {'B': 40, 'A': 240, 'D': 150, 'C': 0})
-
 
         traversal_map_2, distance_tree_2 = self.g.shortest_path('A')
         self.assertEqual(traversal_map_2, {'A': None, 'B': 'A', 'D': 'A', 'C': 'B'})
@@ -149,10 +152,23 @@ class test_GraphTraversal(unittest.TestCase):
         self.assertEqual(distance_tree_3, {'C': 40, 'A': 200, 'B': 0, 'D': 140})
 
 
-    # TODO: Which alg do you use here, and why?
-    # Alg:
-    # Why:
+    # Alg: Prims Algorithm
+    # Why: Because it is designed to create a minimum spanning tree which is what this case is all about
     def test_minimum_salt(self):
-        """ADD DOCSTRING"""
+        """
+        Tests that the shortest_total_path method works properly
+        """
+        traversal_map_1, edge_map_1 = self.g.shortest_total_path('C')
+
+        self.assertEqual(traversal_map_1, {'C': None, 'B': 'C', 'D': 'B', 'A': 'B'})
+        self.assertEqual(edge_map_1, {'B': 40, 'A': 200, 'C': 0, 'D': 140})
+
+        traversal_map_2, edge_map_2 = self.g.shortest_total_path('A')
+        self.assertEqual(traversal_map_2, {'A': None, 'B': 'C', 'D': 'B', 'C': 'B'})
+        self.assertEqual(edge_map_2, {'A': 0, 'D': 140, 'B': 40, 'C': 40})
+
+        traversal_map_3, edge_map_3 = self.g.shortest_total_path('B')
+        self.assertEqual(traversal_map_3, {'B': None, 'A': 'B', 'C': 'B', 'D': 'B'})
+        self.assertEqual(edge_map_3, {'C': 40, 'A': 200, 'D': 140, 'B': 0})
 
 unittest.main()

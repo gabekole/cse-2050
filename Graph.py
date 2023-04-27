@@ -173,6 +173,8 @@ class Graph:
         traversal_map[origin_node] = None
         
         while unvisited_nodes:
+
+            # TODO optimize with a priority queue
             min_node = None
             for node in distance_map:
                 if node not in unvisited_nodes:
@@ -193,5 +195,45 @@ class Graph:
 
         
         return traversal_map, distance_map
+    
 
+    def shortest_total_path(self, origin_node):
+        """
+        Returns a two dictionaries
+
+        traversal_map: A map representing the order of traversal for minimal total travel from `origin_node`
+        edge_map: A map with items: vertex -> edge length
+        """
+
+        edge_map = {node : float('inf') for node in self.adjacency_map}
+        edge_map[origin_node] = 0
+        traversal_map = dict()
+
+        unvisited_nodes = set(self.adjacency_map.keys())
+
+        traversal_map[origin_node] = None
+        
+        while unvisited_nodes:
+
+            # TODO optimize with a priority queue
+            min_node = None
+            for node in edge_map:
+                if node not in unvisited_nodes:
+                    continue
+                if min_node is None:
+                    min_node = node
+                if edge_map[node] < edge_map[min_node]:
+                    min_node = node
+
+            for node in self.nbrs(min_node):
+                if edge_map[node] > self.adjacency_map[min_node][node]:
+                    traversal_map[node] = min_node
+                    edge_map[node] = self.adjacency_map[min_node][node]
+            
+            unvisited_nodes.remove(min_node)
+                
+
+
+        
+        return traversal_map, edge_map
 
