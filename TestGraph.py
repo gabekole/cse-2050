@@ -134,6 +134,9 @@ class test_GraphTraversal(unittest.TestCase):
     # Why: We want the shortest paths in a weighted graph, this is what dijkstra is for
     def test_shortest_path(self):
         """ADD DOCSTRING"""
+        distance_tree_1 = self.g.shortest_path('C')
+
+        print(distance_tree_1)
 
     # TODO: Which alg do you use here, and why?
     # Alg:
