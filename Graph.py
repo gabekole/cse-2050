@@ -157,11 +157,13 @@ class Graph:
 
     def shortest_path(self, origin_node):
 
-        distance_map = {node : float('inf') for node in self.adjacency_map.keys()}
+        distance_map = {node : float('inf') for node in self.adjacency_map}
         distance_map[origin_node] = 0
+        traversal_map = dict()
 
         unvisited_nodes = set(self.adjacency_map.keys())
 
+        traversal_map[origin_node] = None
         
         while unvisited_nodes:
             min_node = None
@@ -175,6 +177,7 @@ class Graph:
 
             for node in self.nbrs(min_node):
                 if distance_map[node] > distance_map[min_node] + self.adjacency_map[min_node][node]:
+                    traversal_map[node] = min_node
                     distance_map[node] = distance_map[min_node] + self.adjacency_map[min_node][node]
             
             unvisited_nodes.remove(min_node)
@@ -182,6 +185,6 @@ class Graph:
 
 
         
-        return distance_map
+        return traversal_map, distance_map
 
 
