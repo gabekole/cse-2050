@@ -163,6 +163,7 @@ class Graph:
         distance_map: A map with items: vertex -> distance to origin_node
         """
 
+        # TODO optimize with a priority queue
         distance_map = {node : float('inf') for node in self.adjacency_map}
         distance_map[origin_node] = 0
         traversal_map = dict()
