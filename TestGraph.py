@@ -134,9 +134,20 @@ class test_GraphTraversal(unittest.TestCase):
     # Why: We want the shortest paths in a weighted graph, this is what dijkstra is for
     def test_shortest_path(self):
         """ADD DOCSTRING"""
-        distance_tree_1 = self.g.shortest_path('C')
+        traversal_map_1, distance_tree_1 = self.g.shortest_path('C')
 
-        print(distance_tree_1)
+        self.assertEqual(traversal_map_1, {'C': None, 'B': 'C', 'D': 'C', 'A': 'B'})
+        self.assertEqual(distance_tree_1, {'B': 40, 'A': 240, 'D': 150, 'C': 0})
+
+
+        traversal_map_2, distance_tree_2 = self.g.shortest_path('A')
+        self.assertEqual(traversal_map_2, {'A': None, 'B': 'A', 'D': 'A', 'C': 'B'})
+        self.assertEqual(distance_tree_2, {'B': 200, 'D': 200, 'C': 240, 'A': 0})
+
+        traversal_map_3, distance_tree_3 = self.g.shortest_path('B')
+        self.assertEqual(traversal_map_3, {'B': None, 'A': 'B', 'C': 'B', 'D': 'B'})
+        self.assertEqual(distance_tree_3, {'C': 40, 'A': 200, 'B': 0, 'D': 140})
+
 
     # TODO: Which alg do you use here, and why?
     # Alg:
