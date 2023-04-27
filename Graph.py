@@ -156,6 +156,12 @@ class Graph:
         return traversal_tree, cost_tree
 
     def shortest_path(self, origin_node):
+        """
+        Returns a two dictionaries
+
+        traversal_map: A map representing the order of traversal for optimal travel from `origin_node`
+        distance_map: A map with items: vertex -> distance to origin_node
+        """
 
         distance_map = {node : float('inf') for node in self.adjacency_map}
         distance_map[origin_node] = 0
